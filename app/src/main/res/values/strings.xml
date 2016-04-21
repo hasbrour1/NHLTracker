@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">NHL Tracker</string>
+    <string name="refresh_button">Refresh</string>
+    <string name="add_button">Add Team</string>
+    <string name="remvoe_button">Remove Team</string>
+</resources>
