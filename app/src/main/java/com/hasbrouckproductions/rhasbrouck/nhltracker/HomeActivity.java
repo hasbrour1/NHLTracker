@@ -6,6 +6,7 @@ package com.hasbrouckproductions.rhasbrouck.nhltracker;
     button eventually and auto refresh.
 
  */
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,8 +31,9 @@ public class HomeActivity extends AppCompatActivity {
         mAddTeam.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View V){
-                //TODO: Open the AddTeam Activity
-
+                //Open the AddTeam Activity
+                Intent addTeamIntent = new Intent(V.getContext(), AddTeamActivity.class);
+                startActivity(addTeamIntent);
 
                 //TODO: get intent from AddTeam with 2 strings with
                 //Team Name and 3 Letter Code
