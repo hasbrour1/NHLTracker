@@ -10,8 +10,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -20,11 +24,24 @@ public class HomeActivity extends AppCompatActivity {
     private Button mRefresh;
     private ListView mTeamList;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        //Set List View
+        mTeamList = (ListView)findViewById(R.id.listView);
+
+        //Set fake teams list
+        List<Team> teams = new ArrayList<Team>();
+
+        teams.add(new Team("New York Rangers", "NYR"));
+        teams.add(new Team("Penguins", "PBP"));
+
+
+        //Set Adapter for mTeamList
+        TeamArrayAdapter adapter = new TeamArrayAdapter(this, R.layout.list_view_adapter, teams);
+        mTeamList.setAdapter(adapter);
 
         //Add listener for add Team Button
         mAddTeam = (Button) findViewById(R.id.addTeamButton);
