@@ -5,6 +5,8 @@ package com.hasbrouckproductions.rhasbrouck.nhltracker;
     to add or remove teams, and a refresh button to refresh data for now.  I will remove the refresh
     button eventually and auto refresh.
 
+    Connecting to git Test
+
  */
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
