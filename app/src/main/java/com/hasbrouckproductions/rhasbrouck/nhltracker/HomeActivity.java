@@ -86,6 +86,9 @@ public class HomeActivity extends AppCompatActivity {
     //refreshData will get the data from
     //http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/NYR/2016/04/iphone/clubschedule.json
     //replace NYR with selected team code, and the date with current year and month.
+    //use https://www.javacodegeeks.com/2013/10/android-json-tutorial-create-and-parse-json-data.html
+    //and http://www.jsoneditoronline.org/?url=http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/NYR/2016/04/iphone/clubschedule.json
+    //for help
     public void refreshData(){
 
     }
