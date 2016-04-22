@@ -3,4 +3,7 @@
     <string name="refresh_button">Refresh</string>
     <string name="add_button">Add Team</string>
     <string name="remvoe_button">Remove Team</string>
+    <string name="enter_button">Enter</string>
+    <string name="team_code">Team Code</string>
+    <string name="team_name">Team Name</string>
 </resources>
