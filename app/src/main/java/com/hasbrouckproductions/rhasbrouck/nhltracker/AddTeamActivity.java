@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddTeamActivity extends AppCompatActivity {
 
@@ -26,12 +27,33 @@ public class AddTeamActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_team);
 
+        //Initialize Edit Texts
+        mTeamNameEdit = (EditText)findViewById(R.id.teamNameEditText);
+        mTeamCodeEdit = (EditText)findViewById(R.id.teamCodeEditText);
+
         //add Enter Button Listener
         mEnterButton = (Button)findViewById(R.id.enterButton);
         mEnterButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //TODO: Check if both edit texts are filled and send in intent
+                String teamName, teamCode;
+
+                //Check if both edit texts are filled and send in intent
+                teamName = mTeamNameEdit.getText().toString();
+                teamCode = mTeamCodeEdit.getText().toString();
+
+                //check team code is only 3
+                if(teamCode.length() != 3){
+                    Toast.makeText(v.getContext(), "Error: Team Code must be 3 letters", Toast.LENGTH_SHORT).show();
+                }else{
+                    //make sure team name is filled
+                    if(teamName.equals("")){
+                        Toast.makeText(v.getContext(), "Error: Please Enter Team Name", Toast.LENGTH_SHORT).show();
+                    }else {
+                        //TODO: Send intent back to HomeActivity
+
+                    }
+                }
             }
         });
     }
