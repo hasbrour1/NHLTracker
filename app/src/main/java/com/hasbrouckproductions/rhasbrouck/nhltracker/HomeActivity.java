@@ -24,6 +24,8 @@ public class HomeActivity extends AppCompatActivity {
     private Button mRefresh;
     private ListView mTeamList;
 
+    private List<Team> teams;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
         mTeamList = (ListView)findViewById(R.id.listView);
 
         //Set fake teams list
-        List<Team> teams = new ArrayList<Team>();
+        teams = new ArrayList<Team>();
 
         teams.add(new Team("New York Rangers", "NYR"));
         teams.add(new Team("Penguins", "PBP"));
@@ -51,12 +53,6 @@ public class HomeActivity extends AppCompatActivity {
                 //Open the AddTeam Activity
                 Intent addTeamIntent = new Intent(V.getContext(), AddTeamActivity.class);
                 startActivity(addTeamIntent);
-
-                //TODO: get intent from AddTeam with 2 strings with
-                //Team Name and 3 Letter Code
-
-                //TODO: Add Team to mTeamList
-
 
             }
         });
@@ -80,6 +76,21 @@ public class HomeActivity extends AppCompatActivity {
                 refreshData();
             }
         });
+
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        //TODO: get intent from AddTeam with 2 strings with
+        //Team Name and 3 Letter Code
+        String teamCode = getIntent().getStringExtra("team_code");
+        String teamName = getIntent().getStringExtra("team_name");
+
+        //TODO: Add Team to mTeamList
+        if(teams != null)
+           teams.add(new Team(teamName, teamCode));
 
     }
 

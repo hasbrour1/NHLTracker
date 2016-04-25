@@ -9,6 +9,7 @@ package com.hasbrouckproductions.rhasbrouck.nhltracker;
 
  */
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -51,6 +52,10 @@ public class AddTeamActivity extends AppCompatActivity {
                         Toast.makeText(v.getContext(), "Error: Please Enter Team Name", Toast.LENGTH_SHORT).show();
                     }else {
                         //TODO: Send intent back to HomeActivity
+                        Intent intent = new Intent(AddTeamActivity.this,HomeActivity.class);
+                        intent.putExtra("team_name", teamName);
+                        intent.putExtra("team_code", teamCode);
+                        startActivity(intent);
 
                     }
                 }
