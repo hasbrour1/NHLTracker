@@ -19,6 +19,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +37,8 @@ public class HomeActivity extends AppCompatActivity {
     private ListView mTeamList;
 
     private ArrayList<Team> teams;
+
+    public JSONParser jsonParser;
 
     TeamArrayAdapter adapter;
 
@@ -138,6 +145,20 @@ public class HomeActivity extends AppCompatActivity {
     //and http://www.jsoneditoronline.org/?url=http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/NYR/2016/04/iphone/clubschedule.json
     //for help
     public void refreshData(){
+        jsonParser = new JSONParser();
 
+        String teamCode;
+        String teamUrl;
+
+        //get team names and get json data
+        for(int i = 0; i < teams.size(); i++){
+            teamCode = teams.get(i).getTeamCode();
+            teamUrl = "http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/" + teamCode + "/2016/04/iphone/clubschedule.json";
+
+            // Getting JSON Object
+            new JSONParser().execute(teamUrl);
+            //Toast.makeText(HomeActivity.this, json.toString(), Toast.LENGTH_LONG);
+
+        }
     }
 }
