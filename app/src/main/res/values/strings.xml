@@ -6,4 +6,7 @@
     <string name="enter_button">Enter</string>
     <string name="team_code">Team Code</string>
     <string name="team_name">Team Name</string>
+    <string name="dialog_remove_team">Remove Team?</string>
+    <string name="remove">remove</string>
+    <string name="cancel_button">cancel</string>
 </resources>

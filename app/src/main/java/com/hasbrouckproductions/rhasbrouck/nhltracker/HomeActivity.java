@@ -6,14 +6,18 @@ package com.hasbrouckproductions.rhasbrouck.nhltracker;
     button eventually and auto refresh.
 
  */
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +33,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private ArrayList<Team> teams;
 
+    TeamArrayAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
             //Set fake teams list
             teams = new ArrayList<Team>();
 
+            //remove default teams eventually
             teams.add(new Team("New York Rangers", "NYR"));
             teams.add(new Team("Penguins", "PBP"));
             Log.d("HOME_ACTIVITY", "savedstate = null");
@@ -52,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         //Set Adapter for mTeamList
-        TeamArrayAdapter adapter = new TeamArrayAdapter(this, R.layout.list_view_adapter, teams);
+        adapter = new TeamArrayAdapter(this, R.layout.list_view_adapter, teams);
         mTeamList.setAdapter(adapter);
 
         //Add listener for add Team Button
@@ -64,6 +71,24 @@ public class HomeActivity extends AppCompatActivity {
                 Intent addTeamIntent = new Intent(V.getContext(), AddTeamActivity.class);
                 startActivityForResult(addTeamIntent, 1);
 
+            }
+        });
+
+        //Add Listener for longTap on ListView
+        mTeamList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> a, View view, int position, long id) {
+                AlertDialog.Builder adb=new AlertDialog.Builder(HomeActivity.this);
+                adb.setTitle("Delete?");
+                adb.setMessage("Are you sure you want to delete " + teams.get(position).getTeamName());
+                final int positionToRemove = position;
+                adb.setNegativeButton("Cancel", null);
+                adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        teams.remove(positionToRemove);
+                        adapter.notifyDataSetChanged();
+                    }});
+                adb.show();
             }
         });
 
@@ -88,7 +113,6 @@ public class HomeActivity extends AppCompatActivity {
         });
 
     }
-
 
     //get new team data from AddTeamActivity
     @Override
