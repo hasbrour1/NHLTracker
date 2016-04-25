@@ -9,6 +9,7 @@ package com.hasbrouckproductions.rhasbrouck.nhltracker;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -38,30 +39,17 @@ public class HomeActivity extends AppCompatActivity {
 
 
         //Check if saved instance state
-        //if(savedInstanceState == null){
+        if(savedInstanceState == null){
             //Set fake teams list
             teams = new ArrayList<Team>();
 
             teams.add(new Team("New York Rangers", "NYR"));
             teams.add(new Team("Penguins", "PBP"));
-        //}else{
-            //teams = savedInstanceState.getParcelableArrayList(KEY_INDEX);
-        //}
-
-        /*
-        //Check for intent
-        Bundle bundle = getIntent().getExtras();
-
-        if(bundle != null){
-            String teamCode = getIntent().getStringExtra("team_code");
-            String teamName = getIntent().getStringExtra("team_name");
-
-            //Add Team to mTeamList
-            if(teams != null)
-                teams.add(new Team(teamName, teamCode));
-
+            Log.d("HOME_ACTIVITY", "savedstate = null");
+        }else{
+            Log.d("HOME_ACTIVITY", "savedstate != null");
+            teams = savedInstanceState.getParcelableArrayList(KEY_INDEX);
         }
-        */
 
         //Set Adapter for mTeamList
         TeamArrayAdapter adapter = new TeamArrayAdapter(this, R.layout.list_view_adapter, teams);
@@ -74,7 +62,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View V){
                 //Open the AddTeam Activity
                 Intent addTeamIntent = new Intent(V.getContext(), AddTeamActivity.class);
-                startActivity(addTeamIntent);
+                startActivityForResult(addTeamIntent, 1);
 
             }
         });
@@ -99,6 +87,28 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    //get new team data from AddTeamActivity
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            if(resultCode == RESULT_OK){
+                String teamCode = data.getStringExtra("team_code");
+                String teamName = data.getStringExtra("team_name");
+
+                Log.d("ACTIVITY HOME", "ON ACTIVITY RESULT");
+                //Add Team to mTeamList
+                if(teams != null) {
+                    teams.add(new Team(teamName, teamCode));
+                    Log.d("ACTIVITY HOME", "ADDED TEAM NAME AND CODE");
+                }else{
+                    Log.d("ACTIVITY HOME", "TEAMS = NULL");
+                }
+            }
+        }
     }
 
     @Override

@@ -52,11 +52,11 @@ public class AddTeamActivity extends AppCompatActivity {
                         Toast.makeText(v.getContext(), "Error: Please Enter Team Name", Toast.LENGTH_SHORT).show();
                     }else {
                         //Send intent back to HomeActivity
-                        Intent intent = new Intent(AddTeamActivity.this,HomeActivity.class);
+                        Intent intent = new Intent();
                         intent.putExtra("team_name", teamName);
                         intent.putExtra("team_code", teamCode);
-                        startActivity(intent);
-
+                        setResult(RESULT_OK, intent);
+                        finish();
                     }
                 }
             }
