@@ -19,12 +19,14 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private static final String KEY_INDEX = "index";
+
     private Button mAddTeam;
     private Button mRemoveTeam;
     private Button mRefresh;
     private ListView mTeamList;
 
-    private List<Team> teams;
+    private ArrayList<Team> teams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +36,32 @@ public class HomeActivity extends AppCompatActivity {
         //Set List View
         mTeamList = (ListView)findViewById(R.id.listView);
 
-        //Set fake teams list
-        teams = new ArrayList<Team>();
 
-        teams.add(new Team("New York Rangers", "NYR"));
-        teams.add(new Team("Penguins", "PBP"));
+        //Check if saved instance state
+        //if(savedInstanceState == null){
+            //Set fake teams list
+            teams = new ArrayList<Team>();
 
+            teams.add(new Team("New York Rangers", "NYR"));
+            teams.add(new Team("Penguins", "PBP"));
+        //}else{
+            //teams = savedInstanceState.getParcelableArrayList(KEY_INDEX);
+        //}
+
+        /*
+        //Check for intent
+        Bundle bundle = getIntent().getExtras();
+
+        if(bundle != null){
+            String teamCode = getIntent().getStringExtra("team_code");
+            String teamName = getIntent().getStringExtra("team_name");
+
+            //Add Team to mTeamList
+            if(teams != null)
+                teams.add(new Team(teamName, teamCode));
+
+        }
+        */
 
         //Set Adapter for mTeamList
         TeamArrayAdapter adapter = new TeamArrayAdapter(this, R.layout.list_view_adapter, teams);
@@ -80,18 +102,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-
-        //TODO: get intent from AddTeam with 2 strings with
-        //Team Name and 3 Letter Code
-        String teamCode = getIntent().getStringExtra("team_code");
-        String teamName = getIntent().getStringExtra("team_name");
-
-        //TODO: Add Team to mTeamList
-        if(teams != null)
-           teams.add(new Team(teamName, teamCode));
-
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(KEY_INDEX, teams);
     }
 
     //refreshData will get the data from

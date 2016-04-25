@@ -1,12 +1,19 @@
 package com.hasbrouckproductions.rhasbrouck.nhltracker;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by hasbrouckr on 4/22/2016.
+ * Holds that data for each individual team.
+ * Implements Parcelable in order to save instance
+ * state for array of objects in HomeActivity
+ *
  */
 
 
 
-public class Team {
+public class Team implements Parcelable {
 
     private String teamName;
     private String teamCode;
@@ -14,6 +21,11 @@ public class Team {
     public Team(String team, String code){
         teamName = team;
         teamCode = code;
+    }
+
+    private Team(Parcel in){
+        teamName = in.readString();
+        teamCode = in.readString();
     }
 
     public String getTeamCode() {
@@ -31,4 +43,29 @@ public class Team {
     public void setTeamName(String teamName) {
         this.teamName = teamName;
     }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(teamName);
+        dest.writeString(teamCode);
+    }
+
+    @Override
+    public String toString() {
+        return teamName + ": " + teamCode;
+    }
+
+    public int describeContents(){
+        return 0;
+    }
+
+    public static final Parcelable.Creator<Team> CREATOR = new Parcelable.Creator<Team>() {
+        public Team createFromParcel(Parcel in) {
+            return new Team(in);
+        }
+
+        public Team[] newArray(int size) {
+            return new Team[size];
+        }
+    };
 }

@@ -51,7 +51,7 @@ public class AddTeamActivity extends AppCompatActivity {
                     if(teamName.equals("")){
                         Toast.makeText(v.getContext(), "Error: Please Enter Team Name", Toast.LENGTH_SHORT).show();
                     }else {
-                        //TODO: Send intent back to HomeActivity
+                        //Send intent back to HomeActivity
                         Intent intent = new Intent(AddTeamActivity.this,HomeActivity.class);
                         intent.putExtra("team_name", teamName);
                         intent.putExtra("team_code", teamCode);
