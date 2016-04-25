@@ -92,16 +92,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        //Add listener for Remove Team Button
-        mRemoveTeam = (Button)findViewById(R.id.removeTeamButton);
-        mRemoveTeam.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                //TODO: Show prompt to select which team to remove
-
-            }
-        });
-
         //Add Listener for Refresh Button
         mRefresh = (Button)findViewById(R.id.refreshButton);
         mRefresh.setOnClickListener(new View.OnClickListener(){
