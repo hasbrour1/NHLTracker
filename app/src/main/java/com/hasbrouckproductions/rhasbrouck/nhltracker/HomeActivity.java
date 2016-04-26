@@ -15,18 +15,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -152,17 +148,29 @@ public class HomeActivity extends AppCompatActivity {
 
         String teamCode;
         String teamUrl;
+        String sMonth;
+        String sYear;
+        Calendar date = Calendar.getInstance();
+        SimpleDateFormat month = new SimpleDateFormat("LL");
+        SimpleDateFormat year = new SimpleDateFormat("yyyy");
 
-        //get team names and get json data
-        //TODO: Get todays date and add it to url string
+        sMonth = month.format(date.getTime());
+        sYear = year.format(date.getTime());
+
+        /*  Test to make sure they contain correct year and month
+        String str = "YEAR: " + sYear + "MONTH: " + sMonth;
+
+        Toast.makeText(HomeActivity.this, str, Toast.LENGTH_LONG).show();
+        */
+
+        //get team names and date to get json data
         for(int i = 0; i < teams.size(); i++){
             teamCode = teams.get(i).getTeamCode();
-            teamUrl = "http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/" + teamCode + "/2016/04/iphone/clubschedule.json";
+            teamUrl = "http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/" + teamCode + "/" +
+                    sYear +"/" + sMonth + "/iphone/clubschedule.json";
 
             // Getting JSON Object
             new JSONParser(getApplicationContext()).execute(teamUrl);
-
-
         }
     }
 
