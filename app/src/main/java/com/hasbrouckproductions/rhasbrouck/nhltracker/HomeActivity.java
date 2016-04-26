@@ -6,6 +6,7 @@ package com.hasbrouckproductions.rhasbrouck.nhltracker;
     button eventually and auto refresh.
 
  */
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -31,6 +32,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private static final String KEY_INDEX = "index";
 
+    private static Context context;
+
     private Button mAddTeam;
     private Button mRemoveTeam;
     private Button mRefresh;
@@ -46,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        context = getApplicationContext();
 
         //Set List View
         mTeamList = (ListView)findViewById(R.id.listView);
@@ -145,20 +149,22 @@ public class HomeActivity extends AppCompatActivity {
     //and http://www.jsoneditoronline.org/?url=http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/NYR/2016/04/iphone/clubschedule.json
     //for help
     public void refreshData(){
-        jsonParser = new JSONParser();
 
         String teamCode;
         String teamUrl;
 
         //get team names and get json data
+        //TODO: Get todays date and add it to url string
         for(int i = 0; i < teams.size(); i++){
             teamCode = teams.get(i).getTeamCode();
             teamUrl = "http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/" + teamCode + "/2016/04/iphone/clubschedule.json";
 
             // Getting JSON Object
-            new JSONParser().execute(teamUrl);
-            //Toast.makeText(HomeActivity.this, json.toString(), Toast.LENGTH_LONG);
+            new JSONParser(getApplicationContext()).execute(teamUrl);
+
 
         }
     }
+
+
 }

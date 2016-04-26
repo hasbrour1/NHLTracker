@@ -8,15 +8,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -26,12 +27,14 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
     static InputStream is = null;
     static JSONObject jObj = null;
     static String json = "";
+    static String result = "";
     static URL url;
     static HttpURLConnection urlConnection;
+    static Context context;
 
     // constructor
-    public JSONParser() {
-
+    public JSONParser(Context c) {
+        context = c;
     }
 
     @Override
@@ -60,8 +63,11 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
             json = sb.toString();
 
 
+            //Parse JSON Data
             try{
-                jObj = new JSONObject("{" + json +"}");
+                jObj = new JSONObject(json);
+                result = jObj.getString("timestamp");
+                //jObj = new JSONObject("{" + json +"}");
             }catch(JSONException e){
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
             }
@@ -73,13 +79,16 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
             urlConnection.disconnect();
         }
 
-        //Use JSON Data
-
+        Log.d("JSON PARSER", "Finished doInBackground");
         return null;
     }
 
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
         super.onPostExecute(jsonObject);
+        Log.d("JSON PARSER", "ENTERED POST EXECUTE");
+        Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+        Log.d("JSON PARSER", "FINISHED");
     }
+
 }
