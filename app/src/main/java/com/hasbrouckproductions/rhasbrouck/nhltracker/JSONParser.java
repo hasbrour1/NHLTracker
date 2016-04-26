@@ -16,16 +16,25 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
 
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
+import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
+import android.text.format.Time;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -94,22 +103,42 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
     protected void onPostExecute(JSONObject jsonObject) {
         super.onPostExecute(jsonObject);
         Log.d("JSON PARSER", "ENTERED POST EXECUTE");
-
-        //Issue notification for now, change it to check every day eventually
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.nhl_icon_black)
-                        .setContentTitle("NHL Tracker")
-                        .setContentText("Team1" + " vs. " + "Team2" + " at " + " date/time");
-
-        int mNotificationId = 001;
-
-        NotificationManager mNotifyMgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        mNotifyMgr.notify(mNotificationId, mBuilder.build());
-
-        Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+        Calendar c = Calendar.getInstance();
+        SetAlarm("Rangers", "Penguins", c);
         Log.d("JSON PARSER", "FINISHED");
     }
 
+
+    public void SetAlarm(final String team1, final String team2, final Calendar date)
+    {
+
+        BroadcastReceiver receiver = new BroadcastReceiver() {
+            @Override public void onReceive( Context context, Intent _ )
+            {
+                //Issue notification for now, change it to check every day eventually
+                NotificationCompat.Builder mBuilder =
+                        new NotificationCompat.Builder(context)
+                                .setSmallIcon(R.drawable.nhl_icon_black)
+                                .setContentTitle("NHL Tracker")
+                                .setContentText(team1 + " vs. " + team2 + " at " + date.getTime());
+
+                int mNotificationId = 001;
+
+                NotificationManager mNotifyMgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+                mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
+                Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+                context.unregisterReceiver( this ); // this == BroadcastReceiver, not Activity
+            }
+        };
+
+        context.registerReceiver( receiver, new IntentFilter("com.hasbrouckproductions.rhasbrouck.nhltracker.somemessage") );
+
+        PendingIntent pintent = PendingIntent.getBroadcast( context, 0, new Intent("com.hasbrouckproductions.rhasbrouck.nhltracker.somemessage"), 0 );
+        AlarmManager manager = (AlarmManager)(context.getSystemService( Context.ALARM_SERVICE ));
+
+        // set alarm to fire 5 sec (1000*5) from now (SystemClock.elapsedRealtime())
+        manager.set( AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 1000*5, pintent );
+    }
 }
