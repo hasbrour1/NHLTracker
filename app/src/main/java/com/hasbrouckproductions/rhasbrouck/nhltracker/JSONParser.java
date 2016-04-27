@@ -25,18 +25,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.AlarmManager;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.AsyncTask;
-import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 public class JSONParser extends AsyncTask<String, Void, JSONObject> {
 
@@ -105,31 +98,8 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
     protected void onPostExecute(JSONObject jsonObject) {
         super.onPostExecute(jsonObject);
         Log.d("JSON PARSER", "ENTERED POST EXECUTE");
-        SetAlarm();
+        checkTeamUpdate();
         Log.d("JSON PARSER", "FINISHED");
-    }
-
-
-    public void SetAlarm()
-    {
-
-        //This will be ran once a day.
-        BroadcastReceiver receiver = new BroadcastReceiver() {
-            @Override public void onReceive( Context context, Intent _ )
-            {
-                checkTeamUpdate();
-                context.unregisterReceiver( this ); // this == BroadcastReceiver, not Activity
-            }
-        };
-
-        context.registerReceiver( receiver, new IntentFilter("com.hasbrouckproductions.rhasbrouck.nhltracker.somemessage") );
-
-        PendingIntent pintent = PendingIntent.getBroadcast( context, 0, new Intent("com.hasbrouckproductions.rhasbrouck.nhltracker.somemessage"), 0 );
-        AlarmManager manager = (AlarmManager)(context.getSystemService( Context.ALARM_SERVICE ));
-
-        // set alarm to fire 5 sec (1000*5) from now (SystemClock.elapsedRealtime())
-        //TODO: change to once a day after testing is done
-        manager.set( AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 1000*5, pintent );
     }
 
     //Check to see if there is an event today with the json data.
@@ -142,7 +112,6 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
 
         //check if something is happening same day as date
         if(jObj != null){
-            String team2 = "";
 
             JSONArray games = null;
 
@@ -176,7 +145,7 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
                     sStartTime = time.format(startTime.getTime());
                     String sGameDay = gameDay.format(startTime.getTime());
 
-                    //if startTime day is today then set notification
+                    //TODO: if startTime day is today then set notification
                     //for now setting to known game for rangers on
                     //2016/04/23 butt end code is below
                     /*

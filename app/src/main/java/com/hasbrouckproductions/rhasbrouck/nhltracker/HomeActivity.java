@@ -6,8 +6,14 @@ package com.hasbrouckproductions.rhasbrouck.nhltracker;
     button eventually and auto refresh.
 
  */
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,10 +34,10 @@ public class HomeActivity extends AppCompatActivity {
     private static final String KEY_INDEX = "index";
 
     private Button mAddTeam;
-    private Button mRefresh;
     private ListView mTeamList;
+    private AlarmManager mManager;
 
-    private ArrayList<Team> teams;
+    public ArrayList<Team> teams;
 
     TeamArrayAdapter adapter;
 
@@ -92,16 +98,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        //Add Listener for Refresh Button
-        mRefresh = (Button)findViewById(R.id.refreshButton);
-        mRefresh.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                //run refresh Data
-                refreshData();
-            }
-        });
-
+        setAlarm();
     }
 
     //get new team data from AddTeamActivity
@@ -130,6 +127,33 @@ public class HomeActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(KEY_INDEX, teams);
     }
+
+    //seting an alarm for once a day
+    //if app is destroyed then the alarm will be turned off
+    public void setAlarm()
+    {
+
+        //This will be ran once a day to check if there are any game
+        //events
+        BroadcastReceiver receiver = new BroadcastReceiver() {
+            @Override public void onReceive(Context context, Intent _ )
+            {
+                Log.d("BROADCAST RECIEVER", "Refreshing data");
+                refreshData();
+                context.unregisterReceiver( this ); // this == BroadcastReceiver, not Activity
+            }
+        };
+
+        this.registerReceiver( receiver, new IntentFilter("com.hasbrouckproductions.rhasbrouck.nhltracker.somemessage") );
+
+        PendingIntent pintent = PendingIntent.getBroadcast( this, 0, new Intent("com.hasbrouckproductions.rhasbrouck.nhltracker.somemessage"), 0 );
+        mManager = (AlarmManager)(this.getSystemService( Context.ALARM_SERVICE ));
+
+        // set alarm to fire 50 sec (1000*50) from now (SystemClock.elapsedRealtime())
+        //TODO: change to once a day after testing is done
+        mManager.setRepeating( AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), (1000*60), pintent );
+    }
+
 
     //refreshData will get the data from
     //http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/NYR/2016/04/iphone/clubschedule.json
