@@ -138,6 +138,8 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
     public void checkTeamUpdate(){
 
         Calendar date = Calendar.getInstance(); //todays date
+        SimpleDateFormat currentDay = new SimpleDateFormat("dd yyyy");
+        String sCurrentDay = currentDay.format(date.getTime());
 
         //TODO: check if something is happening same day as date
         if(jObj != null){
@@ -157,46 +159,62 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
             for(int i = 0; i < games.length(); i++){
                 Calendar startTime = Calendar.getInstance();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy/LL/dd kk:mm:ss");
+                SimpleDateFormat gameDay = new SimpleDateFormat("dd LL yyyy");
+                SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
+
+
                 String sStartTime;
                 String oppTeam = "";
                 String str;
 
+
+
                 //get game
                 try {
+
                     JSONObject game = games.getJSONObject(i);
-                    oppTeam = game.getString("abb");
-                    String sStart = game.getString("startTime");
-                    Log.d("sSTART STRING", sStart);
-                    startTime.setTime(sdf.parse(sStart));
+                    startTime.setTime(sdf.parse(game.getString("startTime")));
+                    sStartTime = time.format(startTime.getTime());
+                    String sGameDay = gameDay.format(startTime.getTime());
+
+                    //if startTime day is today then set notification
+                    //for now setting to known game for rangers on
+                    //2016/04/23 butt end code is below
+                    /*
+                    if(sGameDay.equals(sCurrentDay)){
+                        JSONObject game = games.getJSONObject(i);
+                        oppTeam = game.getString("abb");
+                        startTime.setTime(sdf.parse(game.getString("startTime")));
+                    }
+                    */
+                    Log.d("COMPARING DATES", sGameDay + " = 23 04 2016?");
+                    if(sGameDay.equals("23 04 2016")){
+
+                        oppTeam = game.getString("abb");
+                        str = teamCode + " vs " + oppTeam + " at: " + sStartTime;
+                        setNotification(context, str, "NHL Tracker", 001, R.drawable.nhl_icon_black);
+                    }
 
                 }catch (JSONException e){
                     Log.e("JSON GAME ERROR", e.getMessage());
                 }catch(ParseException e){
                     Log.e("PARSE ERROR", e.getMessage());
                 }
-
-
-                SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
-                sStartTime = time.format(startTime.getTime());
-
-                str = teamCode + " vs " + oppTeam + " at: " + sStartTime;
-                Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
             }
-
-            //Issue notification for now, change it to check every day eventually
-            NotificationCompat.Builder mBuilder =
-                    new NotificationCompat.Builder(context)
-                            .setSmallIcon(R.drawable.nhl_icon_black)
-                            .setContentTitle("NHL Tracker")
-                            .setContentText(teamCode + " vs. " + team2 + " at " + date.getTime());
-
-            int mNotificationId = 001;
-
-            NotificationManager mNotifyMgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-            mNotifyMgr.notify(mNotificationId, mBuilder.build());
-
-            Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    //sets a notification
+    private void setNotification(Context con, String notString, String notTitle, int mNotificationId, int icon){
+        //Issue notification for now, change it to check every day eventually
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(con)
+                        .setSmallIcon(icon)
+                        .setContentTitle(notTitle)
+                        .setContentText(notString);
+
+        NotificationManager mNotifyMgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        mNotifyMgr.notify(mNotificationId, mBuilder.build());
     }
 }
