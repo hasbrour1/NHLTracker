@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
     private ListView mTeamList;
     private AlarmManager mManager;
 
-    public ArrayList<Team> teams;
+    private Teams teams;
 
     TeamArrayAdapter adapter;
 
@@ -45,27 +45,24 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        teams = Teams.getInstance();
 
         //Set List View
         mTeamList = (ListView)findViewById(R.id.listView);
 
-
         //Check if saved instance state
         if(savedInstanceState == null){
             //Set fake teams list
-            teams = new ArrayList<Team>();
-
             //remove default teams eventually
-            teams.add(new Team("New York Rangers", "NYR"));
-            teams.add(new Team("Penguins", "PBP"));
+            teams.addTeam(new Team("New York Rangers", "NYR"));
+            teams.addTeam(new Team("Penguins", "PBP"));
             Log.d("HOME_ACTIVITY", "savedstate = null");
         }else{
             Log.d("HOME_ACTIVITY", "savedstate != null");
-            teams = savedInstanceState.getParcelableArrayList(KEY_INDEX);
         }
 
         //Set Adapter for mTeamList
-        adapter = new TeamArrayAdapter(this, R.layout.list_view_adapter, teams);
+        adapter = new TeamArrayAdapter(this, R.layout.list_view_adapter, teams.getList());
         mTeamList.setAdapter(adapter);
 
         //Add listener for add Team Button
@@ -86,7 +83,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> a, View view, int position, long id) {
                 AlertDialog.Builder adb=new AlertDialog.Builder(HomeActivity.this);
                 adb.setTitle("Delete?");
-                adb.setMessage("Are you sure you want to delete " + teams.get(position).getTeamName());
+                adb.setMessage("Are you sure you want to delete " + teams.getTeam(position).getTeamName());
                 final int positionToRemove = position;
                 adb.setNegativeButton("Cancel", null);
                 adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
@@ -113,7 +110,7 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d("ACTIVITY HOME", "ON ACTIVITY RESULT");
                 //Add Team to mTeamList
                 if(teams != null) {
-                    teams.add(new Team(teamName, teamCode));
+                    teams.addTeam(new Team(teamName, teamCode));
                     Log.d("ACTIVITY HOME", "ADDED TEAM NAME AND CODE");
                 }else{
                     Log.d("ACTIVITY HOME", "TEAMS = NULL");
@@ -125,7 +122,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(KEY_INDEX, teams);
+        outState.putParcelableArrayList(KEY_INDEX, teams.getList());
     }
 
     //seting an alarm for once a day
@@ -182,7 +179,7 @@ public class HomeActivity extends AppCompatActivity {
 
         //get team names and date to get json data
         for(int i = 0; i < teams.size(); i++){
-            teamCode = teams.get(i).getTeamCode();
+            teamCode = teams.getTeam(i).getTeamCode();
             teamUrl = "http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/" + teamCode + "/" +
                     sYear +"/" + sMonth + "/iphone/clubschedule.json";
 
