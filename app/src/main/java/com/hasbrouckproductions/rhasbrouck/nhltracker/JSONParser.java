@@ -105,7 +105,6 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
     protected void onPostExecute(JSONObject jsonObject) {
         super.onPostExecute(jsonObject);
         Log.d("JSON PARSER", "ENTERED POST EXECUTE");
-        Calendar c = Calendar.getInstance();
         SetAlarm();
         Log.d("JSON PARSER", "FINISHED");
     }
