@@ -163,7 +163,7 @@ public class HomeActivity extends AppCompatActivity {
                     sYear +"/" + sMonth + "/iphone/clubschedule.json";
 
             // Getting JSON Object
-            new JSONParser(getApplicationContext()).execute(teamUrl);
+            new JSONParser(getApplicationContext(), teamCode).execute(teamUrl);
         }
     }
 

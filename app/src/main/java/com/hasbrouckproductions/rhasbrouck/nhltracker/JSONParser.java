@@ -16,11 +16,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
-
-
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,6 +40,8 @@ import android.widget.Toast;
 
 public class JSONParser extends AsyncTask<String, Void, JSONObject> {
 
+    private String teamCode;
+
     static InputStream is = null;
     static JSONObject jObj = null;
     static String json = "";
@@ -48,8 +51,9 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
     static Context context;
 
     // constructor
-    public JSONParser(Context c) {
+    public JSONParser(Context c, String team) {
         context = c;
+        teamCode = team;
     }
 
     @Override
@@ -132,19 +136,59 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
     //TODO:Check to see if there is an event today with the json data.
     //TODO:If there is then set up a notification for it
     public void checkTeamUpdate(){
-        String team1 = "";
-        String team2 = "";
 
         Calendar date = Calendar.getInstance(); //todays date
 
         //TODO: check if something is happening same day as date
-        if(true){
+        if(jObj != null){
+            String team2 = "";
+
+            JSONArray games = null;
+
+            //get array for list of games for team
+            try {
+                games = jObj.getJSONArray("games");
+            }catch(JSONException e){
+                Log.e("JSON ARRAY ERROR", e.getMessage());
+            }
+
+            //for loop to go through each game
+            //for now toast team name and star time
+            for(int i = 0; i < games.length(); i++){
+                Calendar startTime = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/LL/dd kk:mm:ss");
+                String sStartTime;
+                String oppTeam = "";
+                String str;
+
+                //get game
+                try {
+                    JSONObject game = games.getJSONObject(i);
+                    oppTeam = game.getString("abb");
+                    String sStart = game.getString("startTime");
+                    Log.d("sSTART STRING", sStart);
+                    startTime.setTime(sdf.parse(sStart));
+
+                }catch (JSONException e){
+                    Log.e("JSON GAME ERROR", e.getMessage());
+                }catch(ParseException e){
+                    Log.e("PARSE ERROR", e.getMessage());
+                }
+
+
+                SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
+                sStartTime = time.format(startTime.getTime());
+
+                str = teamCode + " vs " + oppTeam + " at: " + sStartTime;
+                Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+            }
+
             //Issue notification for now, change it to check every day eventually
             NotificationCompat.Builder mBuilder =
                     new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.nhl_icon_black)
                             .setContentTitle("NHL Tracker")
-                            .setContentText(team1 + " vs. " + team2 + " at " + date.getTime());
+                            .setContentText(teamCode + " vs. " + team2 + " at " + date.getTime());
 
             int mNotificationId = 001;
 
