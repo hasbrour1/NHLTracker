@@ -9,18 +9,18 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.hasbrouckproductions.rhasbrouck.nhltracker.AddTeamActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <Space
         android:layout_width="50px"
         android:layout_height="50px"
         />
 
-    <EditText
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/teamNameEditText"
-        android:hint="@string/team_name"
+        android:layout_height="359dp"
+        android:id="@+id/add_team_list_view"
         />
 
     <Space
@@ -28,16 +28,10 @@
         android:layout_height="50px"
         />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/team_code"
-        android:id="@+id/teamCodeEditText"
-        android:layout_weight="1"/>
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/enter_button"
-        android:id="@+id/enterButton"/>
+        android:id="@+id/enterButton"
+        android:layout_gravity="center_horizontal"/>
 </LinearLayout>

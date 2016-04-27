@@ -17,10 +17,12 @@ public class Team implements Parcelable {
 
     private String teamName;
     private String teamCode;
+    private boolean isSelected;
 
     public Team(String team, String code){
         teamName = team;
         teamCode = code;
+        isSelected = false;
     }
 
     private Team(Parcel in){
@@ -68,4 +70,12 @@ public class Team implements Parcelable {
             return new Team[size];
         }
     };
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 }

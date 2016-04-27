@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,7 +25,6 @@ import android.widget.ListView;
 
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class HomeActivity extends AppCompatActivity {
@@ -52,10 +50,7 @@ public class HomeActivity extends AppCompatActivity {
 
         //Check if saved instance state
         if(savedInstanceState == null){
-            //Set fake teams list
-            //remove default teams eventually
-            teams.addTeam(new Team("New York Rangers", "NYR"));
-            teams.addTeam(new Team("Penguins", "PBP"));
+            teams.addTeam(new Team("New York", "NYI"));
             Log.d("HOME_ACTIVITY", "savedstate = null");
         }else{
             Log.d("HOME_ACTIVITY", "savedstate != null");
