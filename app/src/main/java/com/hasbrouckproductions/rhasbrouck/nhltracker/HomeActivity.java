@@ -166,6 +166,4 @@ public class HomeActivity extends AppCompatActivity {
             new JSONParser(getApplicationContext(), teamCode).execute(teamUrl);
         }
     }
-
-
 }

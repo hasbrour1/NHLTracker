@@ -133,15 +133,15 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
         manager.set( AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 1000*5, pintent );
     }
 
-    //TODO:Check to see if there is an event today with the json data.
-    //TODO:If there is then set up a notification for it
+    //Check to see if there is an event today with the json data.
+    //If there is then set up a notification for it
     public void checkTeamUpdate(){
 
         Calendar date = Calendar.getInstance(); //todays date
         SimpleDateFormat currentDay = new SimpleDateFormat("dd yyyy");
         String sCurrentDay = currentDay.format(date.getTime());
 
-        //TODO: check if something is happening same day as date
+        //check if something is happening same day as date
         if(jObj != null){
             String team2 = "";
 
