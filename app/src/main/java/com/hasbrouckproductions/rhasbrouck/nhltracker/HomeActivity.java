@@ -6,7 +6,6 @@ package com.hasbrouckproductions.rhasbrouck.nhltracker;
     button eventually and auto refresh.
 
  */
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -28,16 +27,11 @@ public class HomeActivity extends AppCompatActivity {
 
     private static final String KEY_INDEX = "index";
 
-    private static Context context;
-
     private Button mAddTeam;
-    private Button mRemoveTeam;
     private Button mRefresh;
     private ListView mTeamList;
 
     private ArrayList<Team> teams;
-
-    public JSONParser jsonParser;
 
     TeamArrayAdapter adapter;
 
@@ -45,7 +39,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        context = getApplicationContext();
 
         //Set List View
         mTeamList = (ListView)findViewById(R.id.listView);

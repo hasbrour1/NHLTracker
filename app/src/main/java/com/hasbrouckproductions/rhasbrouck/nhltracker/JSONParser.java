@@ -82,7 +82,6 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
             try{
                 jObj = new JSONObject(json);
                 result = jObj.getString("timestamp");
-                //jObj = new JSONObject("{" + json +"}");
             }catch(JSONException e){
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
             }

@@ -5,7 +5,8 @@ package com.hasbrouckproductions.rhasbrouck.nhltracker;
     AddTeamActivity will take the team name and 3 letter code and send it with an intent to
     the HomeActivity
 
-    Eventually validate team codes/names before sending
+    TODO:  Change class to open a list view with ability to check list of teams instead of manually typing them
+
 
  */
 
