@@ -11,7 +11,9 @@ public class Teams {
     private static volatile Teams instance;
     private ArrayList<Team> mTeamList;
 
-    private Teams(){}
+    private Teams(){
+        initialize();
+    }
 
     public static Teams getInstance(){
         if(instance == null){
@@ -45,5 +47,37 @@ public class Teams {
 
     public ArrayList<Team> getList(){
         return mTeamList;
+    }
+
+    public void initialize(){
+        String[] sTeams = new String[]{"ANA", "Anaheim Ducks", "ARI", "Arizona Coyotes", "BOS", "Boston Bruins",
+                "BUF", "Buffalo Sabres", "CAR", "Carolina Hurricanes", "CBJ", "Columbus Blue Jackets", "CGY",
+                "Calgary Flames", "CHI", "Chicago Black Hawks", "COL", "Colorado Avalanche", "DAL", "Dallas Stars",
+                "DED", "Detroit Red Wings", "EDM", "Edmonton Oilers", "FLA", "Florida Panthers", "LAK", "Los Angeles Knights",
+                "MIN", "Minnesota Wild", "MTL", "Montreal Canadians", "NJD", "New Jersey Devils", "NSH", "Nashville Predators",
+                "NYI", "New York Islanders", "NYR", "New York Rangers", "Ottawa Senators", "Philadelphia Flyers",
+                "OTT", "Ottawa Senators", "PHI", "Philadelphia Flyers", "PIT", "Pittsburgh Penguins", "SJS", "San Jose Sharks",
+                "STL", "St Louis Blues", "TBL", "Tampa Bay Lightning", "TOR", "Toronto Maple Leafs", "VAN", "Vancouver Canucks",
+                "WPG", "Winnipeg Jets", "WSH", "Washington Capitals"
+
+        };
+
+        for(int i = 0; i < sTeams.length; i++){
+            addTeam(new Team(sTeams[i +1], sTeams[i]));
+            i++;
+        }
+    }
+
+    public ArrayList<Team> getActiveTeams(){
+        ArrayList<Team> activeTeams = new ArrayList<Team>();
+
+        //add teams that are active
+        for(int i = 0; i < mTeamList.size(); i++){
+            if(mTeamList.get(i).isSelected()){
+                activeTeams.add(mTeamList.get(i));
+            }
+        }
+
+        return activeTeams;
     }
 }

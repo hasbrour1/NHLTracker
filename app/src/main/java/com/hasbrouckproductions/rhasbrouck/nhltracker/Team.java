@@ -78,4 +78,6 @@ public class Team implements Parcelable {
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
+
+
 }

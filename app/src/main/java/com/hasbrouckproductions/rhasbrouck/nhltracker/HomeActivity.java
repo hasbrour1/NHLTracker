@@ -21,10 +21,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-
+import android.widget.Toast;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class HomeActivity extends AppCompatActivity {
@@ -50,14 +51,14 @@ public class HomeActivity extends AppCompatActivity {
 
         //Check if saved instance state
         if(savedInstanceState == null){
-            teams.addTeam(new Team("New York", "NYI"));
             Log.d("HOME_ACTIVITY", "savedstate = null");
         }else{
             Log.d("HOME_ACTIVITY", "savedstate != null");
         }
 
-        //Set Adapter for mTeamList
-        adapter = new TeamArrayAdapter(this, R.layout.list_view_adapter, teams.getList());
+        adapter = new TeamArrayAdapter(this, R.layout.list_view_adapter, teams.getActiveTeams());
+
+
         mTeamList.setAdapter(adapter);
 
         //Add listener for add Team Button
@@ -99,17 +100,14 @@ public class HomeActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1){
             if(resultCode == RESULT_OK){
-                String teamCode = data.getStringExtra("team_code");
-                String teamName = data.getStringExtra("team_name");
-
-                Log.d("ACTIVITY HOME", "ON ACTIVITY RESULT");
+                Log.d("ACTIVITY HOME", "ON ACTIVITY RESULT POSITIVE");
                 //Add Team to mTeamList
-                if(teams != null) {
-                    teams.addTeam(new Team(teamName, teamCode));
-                    Log.d("ACTIVITY HOME", "ADDED TEAM NAME AND CODE");
-                }else{
-                    Log.d("ACTIVITY HOME", "TEAMS = NULL");
-                }
+                ArrayList<Team> temTeams;
+                temTeams = teams.getActiveTeams();
+
+                adapter = new TeamArrayAdapter(this, R.layout.list_view_adapter, teams.getActiveTeams());
+                mTeamList.setAdapter(adapter);
+                refreshData();
             }
         }
     }
@@ -174,12 +172,14 @@ public class HomeActivity extends AppCompatActivity {
 
         //get team names and date to get json data
         for(int i = 0; i < teams.size(); i++){
-            teamCode = teams.getTeam(i).getTeamCode();
-            teamUrl = "http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/" + teamCode + "/" +
-                    sYear +"/" + sMonth + "/iphone/clubschedule.json";
+            if(teams.getTeam(i).isSelected()){
+                teamCode = teams.getTeam(i).getTeamCode();
+                teamUrl = "http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/" + teamCode + "/" +
+                        sYear +"/" + sMonth + "/iphone/clubschedule.json";
 
-            // Getting JSON Object
-            new JSONParser(getApplicationContext(), teamCode).execute(teamUrl);
+                // Getting JSON Object
+                new JSONParser(getApplicationContext(), teamCode).execute(teamUrl);
+            }
         }
     }
 }
