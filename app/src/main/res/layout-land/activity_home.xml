@@ -16,7 +16,7 @@
         android:layout_width="561dp"
         android:layout_height="183dp"
         android:id="@+id/listView"
-        />
+        android:layout_weight="0.78"/>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -25,12 +25,5 @@
         android:layout_weight="0.22">
 
     </LinearLayout>
-
-    <Button
-        android:layout_width="107dp"
-        android:layout_height="wrap_content"
-        android:text="@string/add_button"
-        android:id="@+id/addTeamButton"
-        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

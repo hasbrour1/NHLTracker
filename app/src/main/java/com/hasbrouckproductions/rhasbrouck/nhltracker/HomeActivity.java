@@ -10,16 +10,15 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -32,13 +31,34 @@ public class HomeActivity extends AppCompatActivity {
 
     private static final String KEY_INDEX = "index";
 
-    private Button mAddTeam;
     private ListView mTeamList;
     private AlarmManager mManager;
+
+    private Menu mMenu;
 
     private Teams teams;
 
     TeamArrayAdapter adapter;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        mMenu = menu;
+        getMenuInflater().inflate(R.menu.main_menu_options, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // as before
+        switch(item.getItemId()) {
+            case R.id.add_remove_option:
+                //Open the AddTeam Activity
+                Intent addTeamIntent = new Intent(this, AddTeamActivity.class);
+                startActivityForResult(addTeamIntent, 1);
+
+            // rest as before
+        }
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,33 +81,11 @@ public class HomeActivity extends AppCompatActivity {
 
         mTeamList.setAdapter(adapter);
 
-        //Add listener for add Team Button
-        mAddTeam = (Button) findViewById(R.id.addTeamButton);
-        mAddTeam.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View V){
-                //Open the AddTeam Activity
-                Intent addTeamIntent = new Intent(V.getContext(), AddTeamActivity.class);
-                startActivityForResult(addTeamIntent, 1);
-
-            }
-        });
-
         //Add Listener for longTap on ListView
         mTeamList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> a, View view, int position, long id) {
-                AlertDialog.Builder adb=new AlertDialog.Builder(HomeActivity.this);
-                adb.setTitle("Delete?");
-                adb.setMessage("Are you sure you want to delete " + teams.getTeam(position).getTeamName());
-                final int positionToRemove = position;
-                adb.setNegativeButton("Cancel", null);
-                adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        teams.remove(positionToRemove);
-                        adapter.notifyDataSetChanged();
-                    }});
-                adb.show();
+               //Going to go to new activity that shows more details about the team
             }
         });
 
