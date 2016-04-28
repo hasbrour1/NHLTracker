@@ -1,6 +1,10 @@
 package com.hasbrouckproductions.rhasbrouck.nhltracker;
 
+import android.content.Context;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by hasbrouckr on 4/27/2016.
@@ -10,6 +14,7 @@ import java.util.ArrayList;
 public class Teams {
     private static volatile Teams instance;
     private ArrayList<Team> mTeamList;
+    private Context mContext;
 
     private Teams(){
         initialize();
@@ -79,5 +84,47 @@ public class Teams {
         }
 
         return activeTeams;
+    }
+
+    public void setContext(Context c){
+        mContext = c;
+    }
+
+    //refreshData will get the data from
+    //http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/NYR/2016/04/iphone/clubschedule.json
+    //replace NYR with selected team code, and the date with current year and month.
+    //use https://www.javacodegeeks.com/2013/10/android-json-tutorial-create-and-parse-json-data.html
+    //and http://www.jsoneditoronline.org/?url=http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/NYR/2016/04/iphone/clubschedule.json
+    //for help
+    public void refreshData(){
+
+        String teamCode;
+        String teamUrl;
+        String sMonth;
+        String sYear;
+        Calendar date = Calendar.getInstance();
+        SimpleDateFormat month = new SimpleDateFormat("LL");
+        SimpleDateFormat year = new SimpleDateFormat("yyyy");
+
+        sMonth = month.format(date.getTime());
+        sYear = year.format(date.getTime());
+
+        /*  Test to make sure they contain correct year and month
+        String str = "YEAR: " + sYear + "MONTH: " + sMonth;
+
+        Toast.makeText(HomeActivity.this, str, Toast.LENGTH_LONG).show();
+        */
+
+        //get team names and date to get json data
+        for(int i = 0; i < mTeamList.size(); i++){
+            if(this.getTeam(i).isSelected()){
+                teamCode = this.getTeam(i).getTeamCode();
+                teamUrl = "http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/" + teamCode + "/" +
+                        sYear +"/" + sMonth + "/iphone/clubschedule.json";
+
+                // Getting JSON Object
+                new JSONParser(mContext, teamCode).execute(teamUrl);
+            }
+        }
     }
 }

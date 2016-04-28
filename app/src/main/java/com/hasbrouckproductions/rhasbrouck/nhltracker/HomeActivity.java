@@ -8,10 +8,8 @@ package com.hasbrouckproductions.rhasbrouck.nhltracker;
  */
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,12 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -105,7 +100,8 @@ public class HomeActivity extends AppCompatActivity {
 
                 adapter = new TeamArrayAdapter(this, R.layout.list_view_adapter, teams.getActiveTeams());
                 mTeamList.setAdapter(adapter);
-                refreshData();
+                teams.setContext(this);
+                teams.refreshData();
             }
         }
     }
@@ -120,64 +116,19 @@ public class HomeActivity extends AppCompatActivity {
     //if app is destroyed then the alarm will be turned off
     public void setAlarm()
     {
-
+        teams.setContext(HomeActivity.this);
         //This will be ran once a day to check if there are any game
         //events
-        BroadcastReceiver receiver = new BroadcastReceiver() {
-            @Override public void onReceive(Context context, Intent _ )
-            {
-                Log.d("BROADCAST RECIEVER", "Refreshing data");
-                refreshData();
-                context.unregisterReceiver( this ); // this == BroadcastReceiver, not Activity
-            }
-        };
-
-        this.registerReceiver( receiver, new IntentFilter("com.hasbrouckproductions.rhasbrouck.nhltracker.somemessage") );
-
-        PendingIntent pintent = PendingIntent.getBroadcast( this, 0, new Intent("com.hasbrouckproductions.rhasbrouck.nhltracker.somemessage"), 0 );
+        Intent intent = new Intent(this, MyBroadcastReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                this.getApplicationContext(), 234324243, intent, 0);
         mManager = (AlarmManager)(this.getSystemService( Context.ALARM_SERVICE ));
 
         // set alarm to fire 50 sec (1000*50) from now (SystemClock.elapsedRealtime())
         //TODO: change to once a day after testing is done
-        mManager.setRepeating( AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), (1000*60), pintent );
+        mManager.setRepeating( AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), (1000*60), pendingIntent );
     }
 
 
-    //refreshData will get the data from
-    //http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/NYR/2016/04/iphone/clubschedule.json
-    //replace NYR with selected team code, and the date with current year and month.
-    //use https://www.javacodegeeks.com/2013/10/android-json-tutorial-create-and-parse-json-data.html
-    //and http://www.jsoneditoronline.org/?url=http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/NYR/2016/04/iphone/clubschedule.json
-    //for help
-    public void refreshData(){
 
-        String teamCode;
-        String teamUrl;
-        String sMonth;
-        String sYear;
-        Calendar date = Calendar.getInstance();
-        SimpleDateFormat month = new SimpleDateFormat("LL");
-        SimpleDateFormat year = new SimpleDateFormat("yyyy");
-
-        sMonth = month.format(date.getTime());
-        sYear = year.format(date.getTime());
-
-        /*  Test to make sure they contain correct year and month
-        String str = "YEAR: " + sYear + "MONTH: " + sMonth;
-
-        Toast.makeText(HomeActivity.this, str, Toast.LENGTH_LONG).show();
-        */
-
-        //get team names and date to get json data
-        for(int i = 0; i < teams.size(); i++){
-            if(teams.getTeam(i).isSelected()){
-                teamCode = teams.getTeam(i).getTeamCode();
-                teamUrl = "http://nhlwc.cdnak.neulion.com/fs1/nhl/league/clubschedule/" + teamCode + "/" +
-                        sYear +"/" + sMonth + "/iphone/clubschedule.json";
-
-                // Getting JSON Object
-                new JSONParser(getApplicationContext(), teamCode).execute(teamUrl);
-            }
-        }
-    }
 }
