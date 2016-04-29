@@ -3,6 +3,8 @@ package com.hasbrouckproductions.rhasbrouck.nhltracker;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONObject;
+
 /**
  * Created by hasbrouckr on 4/22/2016.
  * Holds that data for each individual team.
@@ -18,11 +20,13 @@ public class Team implements Parcelable {
     private String teamName;
     private String teamCode;
     private boolean isSelected;
+    private JSONObject jObj;
 
     public Team(String team, String code){
         teamName = team;
         teamCode = code;
         isSelected = false;
+        jObj = new JSONObject();
     }
 
     private Team(Parcel in){
@@ -79,5 +83,11 @@ public class Team implements Parcelable {
         isSelected = selected;
     }
 
+    public JSONObject getjObj() {
+        return jObj;
+    }
 
+    public void setjObj(JSONObject jObj) {
+        this.jObj = jObj;
+    }
 }

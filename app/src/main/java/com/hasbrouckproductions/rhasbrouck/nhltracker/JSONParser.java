@@ -42,11 +42,13 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
     static URL url;
     static HttpURLConnection urlConnection;
     static Context context;
+    private Team mTeam;
 
     // constructor
-    public JSONParser(Context c, String team) {
+    public JSONParser(Context c, String team, Team _team) {
         context = c;
         teamCode = team;
+        mTeam = _team;
     }
 
     @Override
@@ -90,6 +92,7 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
             urlConnection.disconnect();
         }
 
+        mTeam.setjObj(jObj);
         Log.d("JSON PARSER", "Finished doInBackground");
         return null;
     }

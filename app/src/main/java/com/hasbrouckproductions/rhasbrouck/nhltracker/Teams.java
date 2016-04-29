@@ -123,7 +123,7 @@ public class Teams {
                         sYear +"/" + sMonth + "/iphone/clubschedule.json";
 
                 // Getting JSON Object
-                new JSONParser(mContext, teamCode).execute(teamUrl);
+                new JSONParser(mContext, teamCode, mTeamList.get(i)).execute(teamUrl);
             }
         }
     }

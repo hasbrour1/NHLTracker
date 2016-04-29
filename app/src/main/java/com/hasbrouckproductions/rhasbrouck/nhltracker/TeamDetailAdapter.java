@@ -28,6 +28,8 @@ public class TeamDetailAdapter extends ArrayAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
+
+        //TODO: set strings with json object from team
         /*
         Team teams = getItem(position);
 
