@@ -15,7 +15,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textView"
-        android:textStyle="bold"/>
+        android:text="@string/team_details_team_name"
+        android:id="@+id/team_detail_team_name"
+        android:textStyle="bold"
+        android:paddingBottom="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/team_details"
+        android:id="@+id/team_detail_team_info"
+        android:paddingLeft="60dp"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="267dp"
+        android:id="@+id/team_detail_list_view"/>
+
 </LinearLayout>

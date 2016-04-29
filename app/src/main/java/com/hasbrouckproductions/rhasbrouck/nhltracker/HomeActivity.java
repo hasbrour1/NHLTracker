@@ -93,6 +93,9 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> a, View view, int position, long id) {
                //Going to go to new activity that shows more details about the team
+                Intent intent = new Intent(HomeActivity.this, TeamDetailActivity.class);
+                intent.putExtra("TEAM_POSITION", position);
+                startActivityForResult(intent, 2);
             }
         });
 
@@ -114,6 +117,11 @@ public class HomeActivity extends AppCompatActivity {
                 mTeamList.setAdapter(adapter);
                 teams.setContext(this);
                 teams.refreshData();
+            }
+        }
+        if(requestCode == 2){
+            if(resultCode == RESULT_OK){
+
             }
         }
     }

@@ -9,4 +9,6 @@
     <string name="dialog_remove_team">Remove Team?</string>
     <string name="remove">remove</string>
     <string name="cancel_button">cancel</string>
+    <string name="team_details">This Months Games</string>
+    <string name="team_details_team_name">Team Name</string>
 </resources>
