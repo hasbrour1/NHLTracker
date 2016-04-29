@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class TeamDetailActivity extends AppCompatActivity {
 
     public Teams mTeams;
@@ -13,6 +15,7 @@ public class TeamDetailActivity extends AppCompatActivity {
 
     private TextView mTeamName;
     private ListView mListView;
+    private TeamDetailAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,11 @@ public class TeamDetailActivity extends AppCompatActivity {
 
         mTeamName = (TextView)findViewById(R.id.team_detail_team_name);
         mTeamName.setText(mTeams.getTeam(teamPos).getTeamName());
+
+        mListView = (ListView)findViewById(R.id.team_detail_list_view);
+        adapter = new TeamDetailAdapter(this, R.layout.team_detail_list_view_adapter, new ArrayList());
+
+        mListView.setAdapter(adapter);
 
     }
 }

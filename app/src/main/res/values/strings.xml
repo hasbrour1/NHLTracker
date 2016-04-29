@@ -11,4 +11,8 @@
     <string name="cancel_button">cancel</string>
     <string name="team_details">This Months Games</string>
     <string name="team_details_team_name">Team Name</string>
+    <string name="detail_teams_playing">Team vs Team</string>
+    <string name="detail_score">Score:</string>
+    <string name="detail_location">Loc:</string>
+    <string name="detail_start_time">start time:</string>
 </resources>
