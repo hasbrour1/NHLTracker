@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import com.hasbrouckproductions.database.TeamDbSchema.rhasbrouck.nhltracker.TeamBaseHelper;
@@ -93,9 +94,13 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> a, View view, int position, long id) {
                //Going to go to new activity that shows more details about the team
+                Team tempTeam = (Team)a.getItemAtPosition(position);
+                //Toast.makeText(HomeActivity.this, tempTeam.getTeamName(), Toast.LENGTH_LONG).show();
+
                 Intent intent = new Intent(HomeActivity.this, TeamDetailActivity.class);
-                intent.putExtra("TEAM_POSITION", position);
+                intent.putExtra("TEAM_POSITION", teams.getPositionByCode(tempTeam.getTeamCode()));
                 startActivityForResult(intent, 2);
+
             }
         });
 

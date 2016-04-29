@@ -127,4 +127,14 @@ public class Teams {
             }
         }
     }
+
+    public int getPositionByCode(String code){
+
+        for(int i = 0; i < mTeamList.size(); i++){
+            if(mTeamList.get(i).getTeamCode().equals(code))
+                return i;
+        }
+
+        return 0;
+    }
 }

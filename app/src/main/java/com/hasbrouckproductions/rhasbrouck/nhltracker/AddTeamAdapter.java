@@ -55,7 +55,7 @@ public class AddTeamAdapter extends ArrayAdapter<Team> {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Teams mTeams = Teams.getInstance();
-                DisplayToast(mTeams.getTeam(position).getTeamName() + " is checked");
+                //DisplayToast(mTeams.getTeam(position).getTeamName() + " is checked");
                 mTeams.getTeam(position).setSelected(isChecked);
             }
         });
