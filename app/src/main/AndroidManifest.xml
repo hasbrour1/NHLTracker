@@ -25,6 +25,9 @@
             android:enabled="true"
             android:exported="true">
         </receiver>
+
+        <activity android:name=".TeamDetailActivity">
+        </activity>
     </application>
 
 </manifest>

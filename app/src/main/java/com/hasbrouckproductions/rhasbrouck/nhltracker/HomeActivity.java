@@ -10,6 +10,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+
+import com.hasbrouckproductions.database.TeamDbSchema.rhasbrouck.nhltracker.TeamBaseHelper;
 
 import java.util.ArrayList;
 
@@ -34,6 +37,8 @@ public class HomeActivity extends AppCompatActivity {
     private Teams teams;
 
     TeamArrayAdapter adapter;
+
+    private SQLiteDatabase mDatabase;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,16 +64,23 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        //Create Database
+        mDatabase = new TeamBaseHelper(this).getWritableDatabase();
+
+
         teams = Teams.getInstance();
+
+
 
         //Set List View
         mTeamList = (ListView)findViewById(R.id.listView);
 
         //Check if saved instance state
         if(savedInstanceState == null){
-            Log.d("HOME_ACTIVITY", "savedstate = null");
+
         }else{
-            Log.d("HOME_ACTIVITY", "savedstate != null");
+
         }
 
         adapter = new TeamArrayAdapter(this, R.layout.list_view_adapter, teams.getActiveTeams());
