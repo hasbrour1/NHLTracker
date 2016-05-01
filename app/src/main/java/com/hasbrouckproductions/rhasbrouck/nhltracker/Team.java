@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 /**
  * Created by hasbrouckr on 4/22/2016.
  * Holds that data for each individual team.
@@ -21,12 +23,14 @@ public class Team implements Parcelable {
     private String teamCode;
     private boolean isSelected;
     private JSONObject jObj;
+    private ArrayList<Game> games;
 
     public Team(String team, String code){
         teamName = team;
         teamCode = code;
         isSelected = false;
         jObj = new JSONObject();
+        games = new ArrayList<>();
     }
 
     private Team(Parcel in){
@@ -89,5 +93,19 @@ public class Team implements Parcelable {
 
     public void setjObj(JSONObject jObj) {
         this.jObj = jObj;
+        populateGames();
+    }
+
+    public ArrayList<Game> getGames() {
+        return games;
+    }
+
+    public void setGames(ArrayList<Game> games) {
+        this.games = games;
+    }
+
+    //TODO: Method to take jObj and set ArrayList of Games
+    private void populateGames(){
+
     }
 }

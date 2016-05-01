@@ -114,9 +114,6 @@ public class HomeActivity extends AppCompatActivity {
         if(requestCode == 1){
             if(resultCode == RESULT_OK){
                 Log.d("ACTIVITY HOME", "ON ACTIVITY RESULT POSITIVE");
-                //Add Team to mTeamList
-                ArrayList<Team> temTeams;
-                temTeams = teams.getActiveTeams();
 
                 adapter = new TeamArrayAdapter(this, R.layout.list_view_adapter, teams.getActiveTeams());
                 mTeamList.setAdapter(adapter);
@@ -153,7 +150,4 @@ public class HomeActivity extends AppCompatActivity {
         //TODO: change to once a day after testing is done
         mManager.setRepeating( AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), (1000*60), pendingIntent );
     }
-
-
-
 }
