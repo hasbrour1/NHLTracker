@@ -14,10 +14,10 @@ import java.util.ArrayList;
 /**
  * Created by hasbrouckr on 4/29/2016.
  */
-public class TeamDetailAdapter extends ArrayAdapter {
+public class TeamDetailAdapter extends ArrayAdapter<Game> {
 
     private Context _context;
-    int _layoutId;
+    private int _layoutId;
 
     public TeamDetailAdapter(Context context, int layoutId, ArrayList games){
         super(context, layoutId, games);
@@ -28,14 +28,13 @@ public class TeamDetailAdapter extends ArrayAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
+        Game game = getItem(position);
 
-        //TODO: set strings with json object from team
-        /*
-        Team teams = getItem(position);
-
-        String teamName = teams.getTeamName();
-        String teamCode = teams.getTeamCode();
-        Log.d("ADAPTER VIEW", teamCode + " " + teamName);
+        String oppTeam = game.getOppTeam();
+        String startTime = game.getStartTime();
+        String loc = game.getGameLoc();
+        String score = game.getScore();
+        Log.d("ADAPTER VIEW", score + " " + startTime);
 
         if(view == null){
             LayoutInflater inflater = (LayoutInflater)_context.getSystemService(
@@ -43,15 +42,16 @@ public class TeamDetailAdapter extends ArrayAdapter {
             view = inflater.inflate(_layoutId, parent,false);
         }
 
-        TextView nameView = (TextView)view.findViewById(R.id.adapter_first_line);
-        TextView codeView = (TextView)view.findViewById(R.id.adapter_second_line);
 
-        nameView.setText(teamName);
-        codeView.setText(teamCode);
+        TextView scoreView = (TextView)view.findViewById(R.id.team_detail_score);
+        TextView startTimeView = (TextView)view.findViewById(R.id.team_detail_start_time);
+        TextView locView = (TextView)view.findViewById(R.id.team_detail_loctaion);
+        TextView oppTeamView = (TextView)view.findViewById(R.id.team_detail_oppTeam);
 
-        return view;
-
-        */
+        scoreView.setText(score);
+        startTimeView.setText(startTime);
+        locView.setText(loc);
+        oppTeamView.setText("vs. " + oppTeam);
 
         return view;
     }

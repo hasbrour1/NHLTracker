@@ -3,6 +3,8 @@ package com.hasbrouckproductions.rhasbrouck.nhltracker;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -106,6 +108,22 @@ public class Team implements Parcelable {
 
     //TODO: Method to take jObj and set ArrayList of Games
     private void populateGames(){
+        JSONArray gameArray;
+
+        try {
+            gameArray = jObj.getJSONArray("games");
+
+            for(int i = 0; i < gameArray.length(); i++){
+                JSONObject temJobj = gameArray.getJSONObject(i);
+                Game newGame;
+
+                newGame = new Game(temJobj.getString("abb"),temJobj.getString("startTime"),temJobj.getString("score"),temJobj.getString("loc"));
+                games.add(newGame);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 }
