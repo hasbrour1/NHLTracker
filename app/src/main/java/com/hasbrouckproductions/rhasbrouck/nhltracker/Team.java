@@ -2,6 +2,7 @@ package com.hasbrouckproductions.rhasbrouck.nhltracker;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -110,19 +111,32 @@ public class Team implements Parcelable {
     private void populateGames(){
         JSONArray gameArray;
 
+        Log.d("GAME STRING", "STARTING STRING BUILD");
         try {
+
             gameArray = jObj.getJSONArray("games");
 
             for(int i = 0; i < gameArray.length(); i++){
+                Log.d("GAME STRING", i + " " + gameArray.length());
                 JSONObject temJobj = gameArray.getJSONObject(i);
                 Game newGame;
 
-                newGame = new Game(temJobj.getString("abb"),temJobj.getString("startTime"),temJobj.getString("score"),temJobj.getString("loc"));
+
+                if(temJobj.has("score")){
+                    newGame = new Game(temJobj.getString("abb"),temJobj.getString("startTime"),temJobj.getString("score"),temJobj.getString("loc"));
+                }else{
+                    newGame = new Game(temJobj.getString("abb"),temJobj.getString("startTime"), "Not Played Yet",temJobj.getString("loc"));
+                }
+
+                Log.d("GAME STRING: " , temJobj.getString("abb"));
+                Log.d("GAME STRING: " , temJobj.getString("startTime"));
+                Log.d("GAME STRING: " , temJobj.getString("loc"));
+
                 games.add(newGame);
             }
 
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.d("GAME STRING", "ERROR: " + e.getMessage());
         }
 
     }
