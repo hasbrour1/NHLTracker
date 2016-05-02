@@ -109,6 +109,9 @@ public class Team implements Parcelable {
 
     //Method to take jObj and set ArrayList of Games
     private void populateGames(){
+        //remove old game list and populate new one
+        games = new ArrayList<>();
+
         JSONArray gameArray;
 
         try {
