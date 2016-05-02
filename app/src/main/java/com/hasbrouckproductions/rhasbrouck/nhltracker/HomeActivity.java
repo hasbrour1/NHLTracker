@@ -39,8 +39,6 @@ public class HomeActivity extends AppCompatActivity {
 
     TeamArrayAdapter adapter;
 
-    private SQLiteDatabase mDatabase;
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         mMenu = menu;
@@ -65,9 +63,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        //Create Database
-        mDatabase = new TeamBaseHelper(this).getWritableDatabase();
 
 
         teams = Teams.getInstance();
