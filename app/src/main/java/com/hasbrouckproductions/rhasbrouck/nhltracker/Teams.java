@@ -148,6 +148,18 @@ public class Teams {
         return 0;
     }
 
+    //this method will take the information from
+    //the database and update the list
+    public void readFromDb(){
+
+    }
+
+    //this method will take the current state of the list and update
+    //the database
+    public void updateToDb(){
+
+    }
+
     private static ContentValues getContentValues(Team team){
         ContentValues values = new ContentValues();
         values.put(TeamsDbSchema.TeamTable.Cols.TEAMCODE, team.getTeamCode());

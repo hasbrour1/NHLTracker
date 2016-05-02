@@ -66,8 +66,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         teams = Teams.getInstance();
-
-
+        teams.readFromDb();
 
         //Set List View
         mTeamList = (ListView)findViewById(R.id.listView);
@@ -114,6 +113,7 @@ public class HomeActivity extends AppCompatActivity {
                 mTeamList.setAdapter(adapter);
                 teams.setContext(this);
                 teams.refreshData();
+                teams.updateToDb();
             }
         }
         if(requestCode == 2){
