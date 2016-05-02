@@ -100,9 +100,7 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
         super.onPostExecute(jsonObject);
-        Log.d("JSON PARSER", "ENTERED POST EXECUTE");
         checkTeamUpdate();
-        Log.d("JSON PARSER", "FINISHED");
     }
 
     //Check to see if there is an event today with the json data.
@@ -110,7 +108,7 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
     public void checkTeamUpdate(){
 
         Calendar date = Calendar.getInstance(); //todays date
-        SimpleDateFormat currentDay = new SimpleDateFormat("dd yyyy");
+        SimpleDateFormat currentDay = new SimpleDateFormat("dd LL yyyy");
         String sCurrentDay = currentDay.format(date.getTime());
 
         //check if something is happening same day as date
@@ -151,13 +149,15 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
                     //TODO: if startTime day is today then set notification
                     //for now setting to known game for rangers on
                     //2016/04/23 butt end code is below
-                    /*
+                    Log.d("DATE COMPAIR", "DOES : " + sGameDay + " EQUAL " + sCurrentDay);
                     if(sGameDay.equals(sCurrentDay)){
-                        JSONObject game = games.getJSONObject(i);
                         oppTeam = game.getString("abb");
-                        startTime.setTime(sdf.parse(game.getString("startTime")));
+                        str = teamCode + " vs " + oppTeam + " at: " + sStartTime;
+                        setNotification(context, str, "NHL Tracker", 001, R.drawable.nhl_icon_black);
                     }
-                    */
+
+
+                    /* PUT IN THIS CODE TO TEST NOTIFICATION FOR RANGERS
                     Log.d("COMPARING DATES", sGameDay + " = 23 04 2016?");
                     if(sGameDay.equals("23 04 2016")){
 
@@ -165,6 +165,7 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
                         str = teamCode + " vs " + oppTeam + " at: " + sStartTime;
                         setNotification(context, str, "NHL Tracker", 001, R.drawable.nhl_icon_black);
                     }
+                    */
 
                 }catch (JSONException e){
                     Log.e("JSON GAME ERROR", e.getMessage());

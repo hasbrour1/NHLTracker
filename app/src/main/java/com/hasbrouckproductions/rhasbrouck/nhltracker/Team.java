@@ -107,30 +107,23 @@ public class Team implements Parcelable {
         this.games = games;
     }
 
-    //TODO: Method to take jObj and set ArrayList of Games
+    //Method to take jObj and set ArrayList of Games
     private void populateGames(){
         JSONArray gameArray;
 
-        Log.d("GAME STRING", "STARTING STRING BUILD");
         try {
-
             gameArray = jObj.getJSONArray("games");
 
             for(int i = 0; i < gameArray.length(); i++){
-                Log.d("GAME STRING", i + " " + gameArray.length());
                 JSONObject temJobj = gameArray.getJSONObject(i);
                 Game newGame;
 
-
+                //Check if game is played yet
                 if(temJobj.has("score")){
                     newGame = new Game(temJobj.getString("abb"),temJobj.getString("startTime"),temJobj.getString("score"),temJobj.getString("loc"));
                 }else{
                     newGame = new Game(temJobj.getString("abb"),temJobj.getString("startTime"), "Not Played Yet",temJobj.getString("loc"));
                 }
-
-                Log.d("GAME STRING: " , temJobj.getString("abb"));
-                Log.d("GAME STRING: " , temJobj.getString("startTime"));
-                Log.d("GAME STRING: " , temJobj.getString("loc"));
 
                 games.add(newGame);
             }
@@ -138,6 +131,5 @@ public class Team implements Parcelable {
         } catch (JSONException e) {
             Log.d("GAME STRING", "ERROR: " + e.getMessage());
         }
-
     }
 }
