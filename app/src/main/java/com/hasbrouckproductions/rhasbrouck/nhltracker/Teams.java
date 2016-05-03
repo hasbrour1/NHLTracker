@@ -80,7 +80,7 @@ public class Teams {
         }
 
         //Create Database
-        mDatabase = new TeamBaseHelper(mContext).getWritableDatabase();
+        //mDatabase = new TeamBaseHelper(mContext).getWritableDatabase();
     }
 
     public ArrayList<Team> getActiveTeams(){
