@@ -11,7 +11,7 @@
     tools:context="com.hasbrouckproductions.rhasbrouck.nhltracker.AddTeamActivity"
     android:orientation="vertical"
     android:weightSum="1"
-    android:background="#d0d1d1">
+    android:background="@drawable/default_background">
 
     <Space
         android:layout_width="50px"
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="359dp"
         android:id="@+id/add_team_list_view"
-        android:background="#a7cbd8"/>
+        android:background="#90a7cbd8"/>
 
     <Space
         android:layout_width="20px"

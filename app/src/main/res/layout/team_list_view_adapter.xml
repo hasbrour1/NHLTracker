@@ -3,7 +3,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="#28765a">
+    >
 
     <LinearLayout
         android:orientation="horizontal"
@@ -18,13 +18,13 @@
             android:id="@+id/addTeam_adapter_first_line"
             android:layout_weight="0.02"
             android:textStyle="bold"
-            android:textColor="#ffffff"/>
+            />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/teamCheckBox"
-            android:buttonTint="#ffffff"/>
+            />
     </LinearLayout>
 
     <TextView
@@ -37,5 +37,5 @@
         android:textSize="20dp"
         android:textStyle="italic"
         android:allowUndo="false"
-        android:textColor="@color/abc_background_cache_hint_selector_material_light"/>
+        />
 </LinearLayout>

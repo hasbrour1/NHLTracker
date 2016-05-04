@@ -11,13 +11,13 @@
     tools:context="com.hasbrouckproductions.rhasbrouck.nhltracker.HomeActivity"
     android:orientation="vertical"
     android:weightSum="1"
-    android:background="#d0d1d1">
+    android:background="@drawable/default_background">
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/listView"
-        android:background="#a7cbd8"
+        android:background="#90a7cbd8"
         android:headerDividersEnabled="false"
         android:drawSelectorOnTop="true"/>
 
