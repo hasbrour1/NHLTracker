@@ -84,17 +84,7 @@ public class HomeActivity extends AppCompatActivity {
 
         //Set List View
         mTeamList = (ListView)findViewById(R.id.listView);
-
-        //Check if saved instance state
-        if(savedInstanceState == null){
-
-        }else{
-
-        }
-
         adapter = new TeamArrayAdapter(this, R.layout.list_view_adapter, teams.getActiveTeams());
-
-
         mTeamList.setAdapter(adapter);
 
         //Add Listener for longTap on ListView
@@ -142,7 +132,7 @@ public class HomeActivity extends AppCompatActivity {
         }
         if(requestCode == 2){
             if(resultCode == RESULT_OK){
-
+                Log.d("ACTIVITY HOME", "ON ACTIVITY RESULT POSITIVE FROM TEAM DETAIL");
             }
         }
     }

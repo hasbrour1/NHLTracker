@@ -87,7 +87,7 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
 
 
         }catch(IOException e){
-
+            Log.e("HOME ACTIVITY ERROR", e.getMessage());
         }finally {
             urlConnection.disconnect();
         }
@@ -107,7 +107,7 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
     //If there is then set up a notification for it
     public void checkTeamUpdate(){
 
-        Calendar date = Calendar.getInstance(); //todays date
+        Calendar date = Calendar.getInstance(); //Today's date
         SimpleDateFormat currentDay = new SimpleDateFormat("dd LL yyyy");
         String sCurrentDay = currentDay.format(date.getTime());
 
@@ -125,36 +125,36 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
 
             //for loop to go through each game
             //for now toast team name and star time
-            for(int i = 0; i < games.length(); i++){
-                Calendar startTime = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/LL/dd kk:mm:ss");
-                SimpleDateFormat gameDay = new SimpleDateFormat("dd LL yyyy");
-                SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
+            if(games != null) {
+                for (int i = 0; i < games.length(); i++) {
+                    Calendar startTime = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/LL/dd kk:mm:ss");
+                    SimpleDateFormat gameDay = new SimpleDateFormat("dd LL yyyy");
+                    SimpleDateFormat time = new SimpleDateFormat("hh:mm aa");
 
 
-                String sStartTime;
-                String oppTeam = "";
-                String str;
+                    String sStartTime;
+                    String oppTeam = "";
+                    String str;
 
 
+                    //get game
+                    try {
 
-                //get game
-                try {
+                        JSONObject game = games.getJSONObject(i);
+                        startTime.setTime(sdf.parse(game.getString("startTime")));
+                        sStartTime = time.format(startTime.getTime());
+                        String sGameDay = gameDay.format(startTime.getTime());
 
-                    JSONObject game = games.getJSONObject(i);
-                    startTime.setTime(sdf.parse(game.getString("startTime")));
-                    sStartTime = time.format(startTime.getTime());
-                    String sGameDay = gameDay.format(startTime.getTime());
-
-                    //TODO: if startTime day is today then set notification
-                    //for now setting to known game for rangers on
-                    //2016/04/23 butt end code is below
-                    Log.d("DATE COMPAIR", "DOES : " + sGameDay + " EQUAL " + sCurrentDay);
-                    if(sGameDay.equals(sCurrentDay)){
-                        oppTeam = game.getString("abb");
-                        str = teamCode + " vs " + oppTeam + " at: " + sStartTime;
-                        setNotification(context, str, "NHL Tracker", 001, R.drawable.nhl_icon_black);
-                    }
+                        //TODO: if startTime day is today then set notification
+                        //for now setting to known game for rangers on
+                        //2016/04/23 butt end code is below
+                        Log.d("DATE COMPAIR", "DOES : " + sGameDay + " EQUAL " + sCurrentDay);
+                        if (sGameDay.equals(sCurrentDay)) {
+                            oppTeam = game.getString("abb");
+                            str = teamCode + " vs " + oppTeam + " at: " + sStartTime;
+                            setNotification(context, str, "NHL Tracker", 001, R.drawable.nhl_icon_black);
+                        }
 
 
                     /* PUT IN THIS CODE TO TEST NOTIFICATION FOR RANGERS
@@ -167,10 +167,11 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject> {
                     }
                     */
 
-                }catch (JSONException e){
-                    Log.e("JSON GAME ERROR", e.getMessage());
-                }catch(ParseException e){
-                    Log.e("PARSE ERROR", e.getMessage());
+                    } catch (JSONException e) {
+                        Log.e("JSON GAME ERROR", e.getMessage());
+                    } catch (ParseException e) {
+                        Log.e("PARSE ERROR", e.getMessage());
+                    }
                 }
             }
         }
