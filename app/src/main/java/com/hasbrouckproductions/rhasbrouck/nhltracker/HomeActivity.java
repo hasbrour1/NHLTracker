@@ -10,6 +10,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,10 +26,13 @@ import android.widget.Toast;
 import com.hasbrouckproductions.database.TeamDbSchema.rhasbrouck.nhltracker.TeamBaseHelper;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class HomeActivity extends AppCompatActivity {
 
     private static final String KEY_INDEX = "index";
+    private static final String PREFERENCES = "com.hasbrouckproductions.rhasbrouck.nhltracker.preferences";
+    private static final String SAVEDSTRING = "com.hasbrouckproductions.rhasbrouck.nhltracker.saved_teams";
 
     private ListView mTeamList;
     private AlarmManager mManager;
@@ -66,7 +70,21 @@ public class HomeActivity extends AppCompatActivity {
 
 
         teams = Teams.getInstance();
-        teams.readFromDb();
+
+
+        //Restore Preferences
+        SharedPreferences savedPreferences = getSharedPreferences(PREFERENCES, 0);
+        String savedString = savedPreferences.getString(SAVEDSTRING, "");
+
+        //If there is a saved string, update active team list
+        if(!savedString.equals("")){
+            StringTokenizer token = new StringTokenizer(savedString);
+            while(token.hasMoreTokens()){
+                int pos = teams.getPositionByCode(token.nextToken());
+                teams.getTeam(pos).setSelected(true);
+            }
+        }
+
 
         //Set List View
         mTeamList = (ListView)findViewById(R.id.listView);
@@ -99,6 +117,18 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         setAlarm();
+    }
+
+    //onPause save active teams to string
+    @Override
+    protected void onPause() {
+        super.onPause();
+        String saveString;
+        saveString = setPreferencesString();
+        SharedPreferences savedPreferences = this.getSharedPreferences(PREFERENCES, 0);
+        SharedPreferences.Editor editor = savedPreferences.edit();
+        editor.putString(SAVEDSTRING, saveString);
+        editor.commit();
     }
 
     //get new team data from AddTeamActivity
@@ -144,5 +174,17 @@ public class HomeActivity extends AppCompatActivity {
         // set alarm to fire 50 sec (1000*50) from now (SystemClock.elapsedRealtime())
         //TODO: change to once a day after testing is done
         mManager.setRepeating( AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), (1000*60), pendingIntent );
+    }
+
+    //gets active teams, puts them in string to save
+    public String setPreferencesString(){
+        ArrayList<Team> tempTeams = teams.getActiveTeams();
+        String preferenceString = "";
+
+        for(int i = 0; i < tempTeams.size(); i++){
+            preferenceString += tempTeams.get(i).getTeamCode() + " ";
+        }
+
+        return preferenceString;
     }
 }
