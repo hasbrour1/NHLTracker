@@ -46,7 +46,6 @@ public class AddTeamAdapter extends ArrayAdapter<Team> {
         TextView codeView = (TextView)view.findViewById(R.id.addTeam_adapter_second_line);
         CheckBox cb = (CheckBox)view.findViewById(R.id.teamCheckBox);
 
-        cb.setChecked(isSelected);
         nameView.setText(teamName);
         codeView.setText(teamCode);
 
@@ -60,6 +59,7 @@ public class AddTeamAdapter extends ArrayAdapter<Team> {
             }
         });
 
+        cb.setChecked(isSelected);
 
         return view;
     }
