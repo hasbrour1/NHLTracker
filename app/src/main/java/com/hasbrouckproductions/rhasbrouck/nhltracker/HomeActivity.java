@@ -11,7 +11,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -139,8 +138,6 @@ public class HomeActivity extends AppCompatActivity {
                 adapter = new TeamArrayAdapter(this, R.layout.list_view_adapter, teams.getActiveTeams());
                 mTeamList.setAdapter(adapter);
                 teams.setContext(this);
-                teams.refreshData();
-                teams.updateToDb();
             }
         }
         if(requestCode == 2){

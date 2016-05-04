@@ -42,10 +42,6 @@ public class Teams {
         mTeamList.add(newTeam);
     }
 
-    public void remove(int position){
-        mTeamList.remove(position);
-    }
-
     public int size(){
         return mTeamList.size();
     }
