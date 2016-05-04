@@ -1,11 +1,6 @@
 package com.hasbrouckproductions.rhasbrouck.nhltracker;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-
-import com.hasbrouckproductions.database.TeamDbSchema.rhasbrouck.nhltracker.TeamBaseHelper;
-import com.hasbrouckproductions.database.TeamDbSchema.rhasbrouck.nhltracker.TeamsDbSchema;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,8 +15,6 @@ public class Teams {
     private static volatile Teams instance;
     private ArrayList<Team> mTeamList;
     private Context mContext;
-
-    private SQLiteDatabase mDatabase;
 
     private Teams(){
         initialize();
@@ -78,9 +71,6 @@ public class Teams {
             addTeam(new Team(sTeams[i +1], sTeams[i]));
             i++;
         }
-
-        //Create Database
-        //mDatabase = new TeamBaseHelper(mContext).getWritableDatabase();
     }
 
     public ArrayList<Team> getActiveTeams(){
@@ -146,26 +136,5 @@ public class Teams {
         }
 
         return 0;
-    }
-
-    //this method will take the information from
-    //the database and update the list
-    public void readFromDb(){
-
-    }
-
-    //this method will take the current state of the list and update
-    //the database
-    public void updateToDb(){
-
-    }
-
-    private static ContentValues getContentValues(Team team){
-        ContentValues values = new ContentValues();
-        values.put(TeamsDbSchema.TeamTable.Cols.TEAMCODE, team.getTeamCode());
-        values.put(TeamsDbSchema.TeamTable.Cols.TEAMNAME, team.getTeamName());
-        values.put(TeamsDbSchema.TeamTable.Cols.POS, instance.getPositionByCode(team.getTeamCode()));
-        values.put(TeamsDbSchema.TeamTable.Cols.SELECTED, team.isSelected());
-        return values;
     }
 }

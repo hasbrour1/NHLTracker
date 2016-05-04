@@ -22,9 +22,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
-import com.hasbrouckproductions.database.TeamDbSchema.rhasbrouck.nhltracker.TeamBaseHelper;
-
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
