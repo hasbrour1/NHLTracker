@@ -15,4 +15,5 @@
     <string name="detail_score">Score:</string>
     <string name="detail_location">Loc:</string>
     <string name="detail_start_time">start time:</string>
+    <string name="detail_score_str">Score: </string>
 </resources>

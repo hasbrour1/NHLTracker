@@ -117,6 +117,12 @@ public class HomeActivity extends AppCompatActivity {
         editor.commit();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        teams.refreshData();
+    }
+
     //get new team data from AddTeamActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
