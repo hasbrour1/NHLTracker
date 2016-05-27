@@ -56,7 +56,7 @@ public class Teams {
                 "Calgary Flames", "CHI", "Chicago Black Hawks", "COL", "Colorado Avalanche", "DAL", "Dallas Stars",
                 "DED", "Detroit Red Wings", "EDM", "Edmonton Oilers", "FLA", "Florida Panthers", "LAK", "Los Angeles Knights",
                 "MIN", "Minnesota Wild", "MTL", "Montreal Canadians", "NJD", "New Jersey Devils", "NSH", "Nashville Predators",
-                "NYI", "New York Islanders", "NYR", "New York Rangers", "Ottawa Senators", "Philadelphia Flyers",
+                "NYI", "New York Islanders", "NYR", "New York Rangers", "PHI", "Philadelphia Flyers",
                 "OTT", "Ottawa Senators", "PHI", "Philadelphia Flyers", "PIT", "Pittsburgh Penguins", "SJS", "San Jose Sharks",
                 "STL", "St Louis Blues", "TBL", "Tampa Bay Lightning", "TOR", "Toronto Maple Leafs", "VAN", "Vancouver Canucks",
                 "WPG", "Winnipeg Jets", "WSH", "Washington Capitals"
@@ -68,7 +68,40 @@ public class Teams {
             i++;
         }
 
+        setIcons();
+    }
+
+    private void setIcons(){
+        mTeamList.get(getPositionByCode("ANA")).setTeamIcon(R.drawable.ducks);
+        mTeamList.get(getPositionByCode("ARI")).setTeamIcon(R.drawable.coyotes);
+        mTeamList.get(getPositionByCode("BOS")).setTeamIcon(R.drawable.bruins);
+        mTeamList.get(getPositionByCode("BUF")).setTeamIcon(R.drawable.sabres);
+        mTeamList.get(getPositionByCode("CAR")).setTeamIcon(R.drawable.hurricanes);
+        mTeamList.get(getPositionByCode("CBJ")).setTeamIcon(R.drawable.jackets);
+        mTeamList.get(getPositionByCode("CGY")).setTeamIcon(R.drawable.flames);
+        mTeamList.get(getPositionByCode("CHI")).setTeamIcon(R.drawable.hawks);
+        mTeamList.get(getPositionByCode("COL")).setTeamIcon(R.drawable.avalanche);
+        mTeamList.get(getPositionByCode("DAL")).setTeamIcon(R.drawable.stars);
+        mTeamList.get(getPositionByCode("DED")).setTeamIcon(R.drawable.wings);
+        mTeamList.get(getPositionByCode("EDM")).setTeamIcon(R.drawable.oilers);
+        mTeamList.get(getPositionByCode("FLA")).setTeamIcon(R.drawable.panthers);
+        mTeamList.get(getPositionByCode("LAK")).setTeamIcon(R.drawable.knights);
+        mTeamList.get(getPositionByCode("MIN")).setTeamIcon(R.drawable.wild);
+        mTeamList.get(getPositionByCode("MTL")).setTeamIcon(R.drawable.canadians);
+        mTeamList.get(getPositionByCode("NDJ")).setTeamIcon(R.drawable.devils);
+        mTeamList.get(getPositionByCode("NHS")).setTeamIcon(R.drawable.predators);
+        mTeamList.get(getPositionByCode("NYI")).setTeamIcon(R.drawable.islanders);
         mTeamList.get(getPositionByCode("NYR")).setTeamIcon(R.drawable.rangers);
+        mTeamList.get(getPositionByCode("OTT")).setTeamIcon(R.drawable.senators);
+        mTeamList.get(getPositionByCode("PHI")).setTeamIcon(R.drawable.flyers);
+        mTeamList.get(getPositionByCode("PIT")).setTeamIcon(R.drawable.penguins);
+        mTeamList.get(getPositionByCode("SJS")).setTeamIcon(R.drawable.sharks);
+        mTeamList.get(getPositionByCode("STL")).setTeamIcon(R.drawable.blues);
+        mTeamList.get(getPositionByCode("TBL")).setTeamIcon(R.drawable.lightning);
+        mTeamList.get(getPositionByCode("TOR")).setTeamIcon(R.drawable.leafs);
+        mTeamList.get(getPositionByCode("VAN")).setTeamIcon(R.drawable.canucks);
+        mTeamList.get(getPositionByCode("WPG")).setTeamIcon(R.drawable.jets);
+        mTeamList.get(getPositionByCode("WSH")).setTeamIcon(R.drawable.capitals);
     }
 
     public ArrayList<Team> getActiveTeams(){

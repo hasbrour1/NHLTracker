@@ -49,8 +49,10 @@ public class TeamArrayAdapter extends ArrayAdapter<Team> {
         TextView codeView = (TextView)view.findViewById(R.id.adapter_second_line);
         teamIcon = (ImageView) view.findViewById(R.id.team_list_image);
 
-
+        teamIcon.setMaxWidth(40);
+        teamIcon.setMaxHeight(40);
         teamIcon.setImageResource(teams.getTeamIcon());
+
 
         nameView.setText(teamName);
         codeView.setText(teamCode);
