@@ -56,7 +56,7 @@ public class Teams {
                 "Calgary Flames", "CHI", "Chicago Black Hawks", "COL", "Colorado Avalanche", "DAL", "Dallas Stars",
                 "DED", "Detroit Red Wings", "EDM", "Edmonton Oilers", "FLA", "Florida Panthers", "LAK", "Los Angeles Knights",
                 "MIN", "Minnesota Wild", "MTL", "Montreal Canadians", "NJD", "New Jersey Devils", "NSH", "Nashville Predators",
-                "NYI", "New York Islanders", "NYR", "New York Rangers", "PHI", "Philadelphia Flyers",
+                "NYI", "New York Islanders", "NYR", "New York Rangers",
                 "OTT", "Ottawa Senators", "PHI", "Philadelphia Flyers", "PIT", "Pittsburgh Penguins", "SJS", "San Jose Sharks",
                 "STL", "St Louis Blues", "TBL", "Tampa Bay Lightning", "TOR", "Toronto Maple Leafs", "VAN", "Vancouver Canucks",
                 "WPG", "Winnipeg Jets", "WSH", "Washington Capitals"
@@ -88,8 +88,8 @@ public class Teams {
         mTeamList.get(getPositionByCode("LAK")).setTeamIcon(R.drawable.knights);
         mTeamList.get(getPositionByCode("MIN")).setTeamIcon(R.drawable.wild);
         mTeamList.get(getPositionByCode("MTL")).setTeamIcon(R.drawable.canadians);
-        mTeamList.get(getPositionByCode("NDJ")).setTeamIcon(R.drawable.devils);
-        mTeamList.get(getPositionByCode("NHS")).setTeamIcon(R.drawable.predators);
+        mTeamList.get(getPositionByCode("NJD")).setTeamIcon(R.drawable.devils);
+        mTeamList.get(getPositionByCode("NSH")).setTeamIcon(R.drawable.predators);
         mTeamList.get(getPositionByCode("NYI")).setTeamIcon(R.drawable.islanders);
         mTeamList.get(getPositionByCode("NYR")).setTeamIcon(R.drawable.rangers);
         mTeamList.get(getPositionByCode("OTT")).setTeamIcon(R.drawable.senators);
