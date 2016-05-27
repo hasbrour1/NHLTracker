@@ -3,6 +3,7 @@ package com.hasbrouckproductions.rhasbrouck.nhltracker;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ public class TeamDetailActivity extends AppCompatActivity {
     private TextView mTeamName;
     private ListView mListView;
     private TeamDetailAdapter adapter;
+    private ImageView teamIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,9 @@ public class TeamDetailActivity extends AppCompatActivity {
         }else{
             teamPos = extras.getInt("TEAM_POSITION");
         }
+
+        teamIcon = (ImageView)findViewById(R.id.team_detail_image_view);
+        teamIcon.setImageResource(mTeams.getTeam(teamPos).getTeamIcon());
 
         mTeamName = (TextView)findViewById(R.id.team_detail_team_name);
         mTeamName.setText(mTeams.getTeam(teamPos).getTeamName());

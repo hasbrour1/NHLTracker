@@ -10,7 +10,8 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp">
+        android:paddingBottom="10dp"
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -18,14 +19,15 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/detail_teams_playing"
             android:id="@+id/team_detail_oppTeam"
-            android:paddingRight="100dp"/>
+            android:paddingRight="150dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/detail_location"
-            android:id="@+id/team_detail_loctaion"/>
+            android:id="@+id/team_detail_loctaion"
+            />
     </LinearLayout>
 
     <TextView

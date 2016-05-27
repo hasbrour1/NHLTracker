@@ -12,15 +12,33 @@
     android:orientation="vertical"
     android:background="@drawable/default_background">
 
-    <TextView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/team_details_team_name"
-        android:id="@+id/team_detail_team_name"
-        android:textStyle="bold"
-        android:paddingBottom="20dp"
-        android:textColor="#ffffff"/>
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/team_details_team_name"
+            android:id="@+id/team_detail_team_name"
+            android:textStyle="bold"
+            android:paddingBottom="20dp"
+            android:textColor="#ffffff"/>
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:id="@+id/team_detail_image_view"
+            />
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
