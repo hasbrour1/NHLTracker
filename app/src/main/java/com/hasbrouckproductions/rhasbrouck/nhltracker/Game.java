@@ -1,5 +1,10 @@
 package com.hasbrouckproductions.rhasbrouck.nhltracker;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by Rob on 4/30/2016.
  */
@@ -25,7 +30,16 @@ public class Game {
     }
 
     public String getStartTime() {
-        return startTime;
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyy/LL/dd HH:mm:ss").parse(startTime);
+            String day = new SimpleDateFormat("dd/LL").format(date);
+            String hour = new SimpleDateFormat("hh:mm").format(date);
+            return day + " at " + hour;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public void setStartTime(String startTime) {

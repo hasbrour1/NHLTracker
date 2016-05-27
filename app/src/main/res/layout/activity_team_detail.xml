@@ -37,6 +37,8 @@
         android:id="@+id/team_detail_list_view"
         android:background="#90a7cbd8"
         android:focusable="false"
-        />
+        android:divider="#000000"
+        android:drawSelectorOnTop="true"
+        android:dividerHeight="5dp"/>
 
 </LinearLayout>

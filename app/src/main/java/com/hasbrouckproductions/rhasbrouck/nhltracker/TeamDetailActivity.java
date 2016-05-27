@@ -39,7 +39,7 @@ public class TeamDetailActivity extends AppCompatActivity {
         mTeamName.setText(mTeams.getTeam(teamPos).getTeamName());
 
         mListView = (ListView)findViewById(R.id.team_detail_list_view);
-        adapter = new TeamDetailAdapter(this, R.layout.team_detail_list_view_adapter, mTeams.getTeam(teamPos).getGames());
+        adapter = new TeamDetailAdapter(this, R.layout.team_detail_list_view_adapter, mTeams.getTeam(teamPos).getGames(), mTeams.getTeam(teamPos));
 
         mListView.setAdapter(adapter);
 

@@ -18,11 +18,13 @@ public class TeamDetailAdapter extends ArrayAdapter<Game> {
 
     private Context _context;
     private int _layoutId;
+    private Team _team;
 
-    public TeamDetailAdapter(Context context, int layoutId, ArrayList games){
+    public TeamDetailAdapter(Context context, int layoutId, ArrayList games, Team team){
         super(context, layoutId, games);
         _context = context;
         _layoutId = layoutId;
+        _team = team;
         Log.d("SEARCHING FOR ADAPTER", "ENTERED CONSTRUCTOR");
     }
 
@@ -51,7 +53,7 @@ public class TeamDetailAdapter extends ArrayAdapter<Game> {
         scoreView.setText(score);
         startTimeView.setText(startTime);
         locView.setText(loc);
-        oppTeamView.setText("vs. " + oppTeam);
+        oppTeamView.setText(_team.getTeamCode() + " vs. " + oppTeam);
 
         return view;
     }
