@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class AddTeamAdapter extends ArrayAdapter<Team> {
     private Context _context;
     int _layoutId;
+    ImageView teamIcon;
 
     public AddTeamAdapter(Context context, int layoutId, ArrayList<Team> teams){
         super(context, layoutId, teams);
@@ -36,6 +38,7 @@ public class AddTeamAdapter extends ArrayAdapter<Team> {
         boolean isSelected = teams.isSelected();
         Log.d("ADAPTER VIEW", teamCode + " " + teamName);
 
+
         if(view == null){
             LayoutInflater inflater = (LayoutInflater)_context.getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
@@ -45,6 +48,9 @@ public class AddTeamAdapter extends ArrayAdapter<Team> {
         TextView nameView = (TextView)view.findViewById(R.id.addTeam_adapter_first_line);
         TextView codeView = (TextView)view.findViewById(R.id.addTeam_adapter_second_line);
         CheckBox cb = (CheckBox)view.findViewById(R.id.teamCheckBox);
+        teamIcon = (ImageView) view.findViewById(R.id.team_list_view_image);
+
+        teamIcon.setImageResource(teams.getTeamIcon());
 
         nameView.setText(teamName);
         codeView.setText(teamCode);
