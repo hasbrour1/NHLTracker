@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/listView"
-        android:background="#90a7cbd8"
+        android:background="#9EABB5"
         android:headerDividersEnabled="false"
         android:drawSelectorOnTop="true"/>
 

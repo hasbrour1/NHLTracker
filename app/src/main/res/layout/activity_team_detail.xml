@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/team_detail_list_view"
-        android:background="#90a7cbd8"
+        android:background="#9EABB5"
         android:focusable="false"
         android:divider="#000000"
         android:drawSelectorOnTop="true"
