@@ -6,22 +6,43 @@
               android:weightSum="1"
               android:background="#9988afd5">
 
-    <TextView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/adapter_first_line"
-        android:layout_weight="0.05"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:weightSum="1">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/adapter_second_line"
-        android:layout_weight="0.05"
-        android:textSize="20dp"
-        android:textStyle="italic" />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:id="@+id/team_list_image"
+            android:layout_weight="0.00"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/adapter_first_line"
+                android:layout_weight="0.05"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/adapter_second_line"
+                android:layout_weight="0.05"
+                android:textSize="20dp"
+                android:textStyle="italic" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 </LinearLayout>

@@ -3,6 +3,7 @@ package com.hasbrouckproductions.rhasbrouck.nhltracker;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.ImageView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +28,7 @@ public class Team implements Parcelable {
     private boolean isSelected;
     private JSONObject jObj;
     private ArrayList<Game> games;
+    private int teamIcon;
 
     public Team(String team, String code){
         teamName = team;
@@ -34,6 +36,7 @@ public class Team implements Parcelable {
         isSelected = false;
         jObj = new JSONObject();
         games = new ArrayList<>();
+        teamIcon = R.drawable.nhl_icon_black;
     }
 
     private Team(Parcel in){
@@ -134,5 +137,13 @@ public class Team implements Parcelable {
         } catch (JSONException e) {
             Log.d("GAME STRING", "ERROR: " + e.getMessage());
         }
+    }
+
+    public int getTeamIcon() {
+        return teamIcon;
+    }
+
+    public void setTeamIcon(int teamIcon) {
+        this.teamIcon = teamIcon;
     }
 }

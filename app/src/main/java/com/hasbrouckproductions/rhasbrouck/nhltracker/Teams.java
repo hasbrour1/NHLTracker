@@ -67,6 +67,8 @@ public class Teams {
             addTeam(new Team(sTeams[i +1], sTeams[i]));
             i++;
         }
+
+        mTeamList.get(getPositionByCode("NYR")).setTeamIcon(R.drawable.rangers);
     }
 
     public ArrayList<Team> getActiveTeams(){

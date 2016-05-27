@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ public class TeamArrayAdapter extends ArrayAdapter<Team> {
 
     private Context _context;
     int _layoutId;
+    ImageView teamIcon;
+
 
     public TeamArrayAdapter(Context context, int layoutId, ArrayList<Team> teams){
         super(context, layoutId, teams);
@@ -33,6 +36,7 @@ public class TeamArrayAdapter extends ArrayAdapter<Team> {
 
         String teamName = teams.getTeamName();
         String teamCode = teams.getTeamCode();
+
         Log.d("ADAPTER VIEW", teamCode + " " + teamName);
 
         if(view == null){
@@ -43,6 +47,10 @@ public class TeamArrayAdapter extends ArrayAdapter<Team> {
 
         TextView nameView = (TextView)view.findViewById(R.id.adapter_first_line);
         TextView codeView = (TextView)view.findViewById(R.id.adapter_second_line);
+        teamIcon = (ImageView) view.findViewById(R.id.team_list_image);
+
+
+        teamIcon.setImageResource(teams.getTeamIcon());
 
         nameView.setText(teamName);
         codeView.setText(teamCode);
